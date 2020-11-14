@@ -1,7 +1,7 @@
 package top.vuhe;
 
-import top.vuhe.entity.Problem;
-import top.vuhe.problem.ProblemFactory;
+import top.vuhe.model.Problem;
+import top.vuhe.controller.problem.ProblemFactory;
 
 import java.util.List;
 

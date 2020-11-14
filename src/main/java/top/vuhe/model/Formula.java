@@ -1,4 +1,4 @@
-package top.vuhe.entity;
+package top.vuhe.model;
 
 public class Formula {
     private final int a;

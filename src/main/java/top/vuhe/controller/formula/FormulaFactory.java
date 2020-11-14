@@ -1,7 +1,7 @@
-package top.vuhe.formula;
+package top.vuhe.controller.formula;
 
-import top.vuhe.entity.Formula;
-import top.vuhe.entity.OperatorEnum;
+import top.vuhe.model.Formula;
+import top.vuhe.model.OperatorEnum;
 
 import java.util.Random;
 

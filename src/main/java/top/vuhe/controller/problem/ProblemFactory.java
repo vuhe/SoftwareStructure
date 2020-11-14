@@ -1,7 +1,7 @@
-package top.vuhe.problem;
+package top.vuhe.controller.problem;
 
-import top.vuhe.entity.Problem;
-import top.vuhe.formula.FormulaFactory;
+import top.vuhe.model.Problem;
+import top.vuhe.controller.formula.FormulaFactory;
 
 import java.util.ArrayList;
 import java.util.List;
