@@ -2,7 +2,7 @@ package top.vuhe.model;
 
 public class Formula {
     private final int a;
-    private final OperatorEnum op;
+    private final Operator op;
     private final int b;
 
     /**
@@ -13,7 +13,7 @@ public class Formula {
      * @param op 运算符
      * @param b  第二个数
      */
-    public Formula(int a, OperatorEnum op, int b) {
+    public Formula(int a, Operator op, int b) {
         this.a = a;
         this.op = op;
         this.b = b;
@@ -23,7 +23,7 @@ public class Formula {
         return a;
     }
 
-    public OperatorEnum getOp() {
+    public Operator getOp() {
         return op;
     }
 
