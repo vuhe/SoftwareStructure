@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'top.vuhe'
-version '0.0.1-SNAPSHOT'
+version '0.2'
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
@@ -22,6 +22,15 @@ repositories {
     maven { url 'https://maven.aliyun.com/repository/apache-snapshots/' }
     // maven 中央库
     mavenCentral()
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    manifest {
+        attributes 'Main-Class': 'top.vuhe.MainApplication'
+    }
 }
 
 dependencies {
