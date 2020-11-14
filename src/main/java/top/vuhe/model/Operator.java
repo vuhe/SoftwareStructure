@@ -1,6 +1,6 @@
-package top.vuhe.entity;
+package top.vuhe.model;
 
-public enum OperatorEnum {
+public enum Operator {
     // 加法
     plus() {
         @Override

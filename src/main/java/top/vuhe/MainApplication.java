@@ -1,30 +1,16 @@
 package top.vuhe;
 
-import top.vuhe.entity.Problem;
-import top.vuhe.problem.ProblemFactory;
+import top.vuhe.view.MainFrame;
 
-import java.util.List;
+import javax.swing.*;
 
 public class MainApplication {
+    /**
+     * 使用Swing的线程操作UI
+     *
+     * @param args 主函数参数
+     */
     public static void main(String[] args) {
-        List<Problem> problems = ProblemFactory.getTestProblem();
-        System.out.println("问题：");
-        for (int i = 0; i < 50; i++) {
-            if (i != 0 && i % 5 == 0) {
-                System.out.println();
-            }
-            System.out.print(problems.get(i).getFormula() + "\t");
-        }
-        System.out.println("\n答案：");
-        for (int i = 0; i < 50; i++) {
-            if (i != 0 && i % 5 == 0) {
-                System.out.println();
-            }
-            Problem problem = problems.get(i);
-            System.out.print(problem.getFormula());
-            System.out.print(problem.getAns() + "\t");
-
-        }
+        SwingUtilities.invokeLater(MainFrame::getMainFrame);
     }
-
 }

@@ -1,4 +1,4 @@
-package top.vuhe.entity;
+package top.vuhe.model;
 
 public class Problem {
     private final Formula formula;
@@ -6,7 +6,7 @@ public class Problem {
 
     public Problem(Formula formula) {
         this.formula = formula;
-        OperatorEnum op = formula.getOp();
+        Operator op = formula.getOp();
         this.ans = op.calculate(formula.getA(), formula.getB());
     }
 
