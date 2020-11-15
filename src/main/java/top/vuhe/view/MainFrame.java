@@ -22,7 +22,11 @@ public class MainFrame extends JFrame {
         setSize(550, 400);
         setResizable(false);
         setVisible(true);
+
+        // 默认为BorderLayout布局
+        // 设置题目在中心
         add(ProblemPanel.getProblemPanel(), BorderLayout.CENTER);
+        // 设置按钮操作在下方
         add(new FunctionPanel(), BorderLayout.SOUTH);
     }
 }

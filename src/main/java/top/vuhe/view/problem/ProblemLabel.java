@@ -14,6 +14,9 @@ public class ProblemLabel extends JLabel {
         setText(problem.getFormula().toString());
     }
 
+    /**
+     * 对一个标签中信息进行替换，显示答案
+     */
     public void showAns() {
         if (!showAns) {
             setText(problem.getFormula() + "" + problem.getAns());

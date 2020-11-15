@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'top.vuhe'
-version '0.2'
+version '0.3'
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
