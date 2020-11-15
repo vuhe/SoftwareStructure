@@ -50,6 +50,7 @@ public class MainApplicationTest {
                 throw new RuntimeException("随机数不符合 (0, 100)");
             }
         }
+        System.out.println("\n\n运算值符合 (0, 100)");
     }
 
     /**
@@ -68,5 +69,6 @@ public class MainApplicationTest {
                 throw new RuntimeException("结果不符合 (0, 100)");
             }
         }
+        System.out.println("\n运算结果符合 [0, 100]");
     }
 }

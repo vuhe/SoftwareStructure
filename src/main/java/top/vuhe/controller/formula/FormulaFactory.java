@@ -10,13 +10,16 @@ public class FormulaFactory {
     private static final Random random = new Random(47);
 
     public static Formula getFormula() {
-        int a = random.nextInt(101);
+        // 1 ～ 99
+        int a = random.nextInt(99) + 1;
         Operator op = randomGetOperator();
-        int b = random.nextInt(101);
+        // 1 ～ 99
+        int b = random.nextInt(99) + 1;
         // 不符合答案重新生产数字
         while (!checkAns(a, op, b)) {
-            a = random.nextInt(101);
-            b = random.nextInt(101);
+            // 1 ～ 99
+            a = random.nextInt(99) + 1;
+            b = random.nextInt(99) + 1;
         }
         return new Formula(a, op, b);
     }
