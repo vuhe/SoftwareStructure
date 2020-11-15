@@ -35,7 +35,12 @@ public class Formula {
 
     @Override
     public String toString() {
-        return a + " " + op + " " + b + " = ";
+        return String.format("%2d", a) +
+                " " +
+                op +
+                " " +
+                String.format("%2d", b) +
+                " = ";
     }
 
     /**

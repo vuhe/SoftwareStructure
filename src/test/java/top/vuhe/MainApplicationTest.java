@@ -24,9 +24,7 @@ public class MainApplicationTest {
             }
             Problem problem = problems.get(i);
             Formula formula = problem.getFormula();
-            System.out.printf("%3d", formula.getA());
-            System.out.print(" " + formula.getOp() + " ");
-            System.out.printf("%3d = ", formula.getB());
+            System.out.print(formula);
             System.out.printf("%3d   ", problem.getAns());
         }
     }
