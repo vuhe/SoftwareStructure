@@ -1,8 +1,10 @@
 package top.vuhe.view;
 
+import top.vuhe.view.function.FunctionPanel;
 import top.vuhe.view.problem.ProblemPanel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainFrame extends JFrame {
 
@@ -17,9 +19,10 @@ public class MainFrame extends JFrame {
     private MainFrame() {
         super("加减法口算练习系统");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 300);
+        setSize(550, 400);
         setResizable(false);
         setVisible(true);
-        add(new ProblemPanel());
+        add(ProblemPanel.getProblemPanel(), BorderLayout.CENTER);
+        add(new FunctionPanel(), BorderLayout.SOUTH);
     }
 }
