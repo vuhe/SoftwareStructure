@@ -4,11 +4,12 @@ import org.junit.Test;
 import top.vuhe.controller.formula.FormulaFactory;
 import top.vuhe.controller.problem.ProblemFactory;
 import top.vuhe.model.Formula;
+import top.vuhe.model.Operator;
 import top.vuhe.model.Problem;
 
-import java.util.List;
+import java.util.*;
 
-public class MainApplicationTest {
+public class ReportTest1 {
     /**
      * 版本 v0.1 测试
      *
@@ -16,8 +17,8 @@ public class MainApplicationTest {
      */
     @Test
     public void testV1() {
+        System.out.println("v0.1 算式：");
         List<Problem> problems = ProblemFactory.getTestProblem();
-        System.out.println("算式：");
         for (int i = 0; i < 50; i++) {
             if (i != 0 && i % 5 == 0) {
                 System.out.println();
@@ -27,6 +28,7 @@ public class MainApplicationTest {
             System.out.print(formula);
             System.out.printf("%3d   ", problem.getAns());
         }
+        System.out.println("\n");
     }
 
     /**
@@ -36,6 +38,7 @@ public class MainApplicationTest {
      */
     @Test
     public void testV2() {
+        System.out.println("v0.2:");
         // 测试 1000 次
         for (int i = 0; i < 1000; i++) {
             Formula formula = FormulaFactory.getFormula();
@@ -48,7 +51,7 @@ public class MainApplicationTest {
                 throw new RuntimeException("随机数不符合 (0, 100)");
             }
         }
-        System.out.println("\n\n运算值符合 (0, 100)");
+        System.out.println("运算值符合 (0, 100)\n");
     }
 
     /**
@@ -58,6 +61,7 @@ public class MainApplicationTest {
      */
     @Test
     public void testV3() {
+        System.out.println("v0.3:");
         // 测试 1000 次
         for (int i = 0; i < 1000; i++) {
             Formula formula = FormulaFactory.getFormula();
@@ -67,6 +71,32 @@ public class MainApplicationTest {
                 throw new RuntimeException("结果不符合 (0, 100)");
             }
         }
-        System.out.println("\n运算结果符合 [0, 100]");
+        System.out.println("运算结果符合 [0, 100]\n");
+    }
+
+    /**
+     * 版本 v0.4 测试
+     *
+     * 测试「算式是否重复」以及「运算符的平均度」
+     */
+    @Test
+    public void testV4() {
+        System.out.println("v0.3:");
+        Set<Formula> set = new HashSet<>();
+        Map<Operator, Integer> map = new EnumMap<>(Operator.class);
+        map.put(Operator.minus, 0);
+        map.put(Operator.plus, 0);
+        for (int i = 0; i < 50; i++) {
+            Formula formula = FormulaFactory.getFormula();
+            if (set.contains(formula)) {
+                throw new RuntimeException("算式重复");
+            }
+            if (map.get(formula.getOp()) > 25) {
+                throw new RuntimeException("运算符不平均");
+            }
+            set.add(formula);
+            map.put(formula.getOp(), map.get(formula.getOp()) + 1);
+        }
+        System.out.println("算式没有重复，运算符平均生成\n");
     }
 }
