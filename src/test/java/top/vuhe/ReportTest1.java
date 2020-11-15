@@ -39,8 +39,8 @@ public class ReportTest1 {
     @Test
     public void testV2() {
         System.out.println("v0.2:");
-        // 测试 1000 次
-        for (int i = 0; i < 1000; i++) {
+        // 测试 50 次
+        for (int i = 0; i < 50; i++) {
             Formula formula = FormulaFactory.getFormula();
             int a = formula.getA();
             int b = formula.getB();
@@ -62,8 +62,8 @@ public class ReportTest1 {
     @Test
     public void testV3() {
         System.out.println("v0.3:");
-        // 测试 1000 次
-        for (int i = 0; i < 1000; i++) {
+        // 测试 50 次
+        for (int i = 0; i < 50; i++) {
             Formula formula = FormulaFactory.getFormula();
             Problem problem = new Problem(formula);
             int ans = problem.getAns();
@@ -81,7 +81,7 @@ public class ReportTest1 {
      */
     @Test
     public void testV4() {
-        System.out.println("v0.3:");
+        System.out.println("v0.4:");
         Set<Formula> set = new HashSet<>();
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
         map.put(Operator.minus, 0);

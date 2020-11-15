@@ -31,8 +31,9 @@ public class FormulaFactory {
             formula = new Formula(a, op, b);
             // 不符合答案重新生产算式
         } while (!checkFormula(formula));
-        // 记录生成的算式
+        // 记录生成的算式和运算符
         set.add(formula);
+        map.put(formula.getOp(), map.get(formula.getOp()) + 1);
         return formula;
     }
 
@@ -71,6 +72,6 @@ public class FormulaFactory {
             return false;
         }
         // 运算符是否平均
-        return map.get(op) <= 50;
+        return map.get(op) <= 25;
     }
 }
