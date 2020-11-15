@@ -3,15 +3,21 @@ package top.vuhe.controller.formula;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class FormulaFactory {
     // 随机数生产器
     private static final Random random = new Random(47);
     // 算式统计器
     private static final Set<Formula> set = new HashSet<>();
+    // 运算符统计器
+    private static final Map<Operator, Integer> map = new EnumMap<>(Operator.class);
+
+    // 初始化运算符统计器
+    static {
+        map.put(Operator.plus, 0);
+        map.put(Operator.minus, 0);
+    }
 
     public static Formula getFormula() {
         Formula formula;
@@ -54,7 +60,17 @@ public class FormulaFactory {
     private static boolean checkFormula(Formula formula) {
         int a = formula.getA();
         int b = formula.getB();
-        int ans = formula.getOp().calculate(a, b);
-        return 0 <= ans && ans <= 100 && !set.contains(formula);
+        Operator op = formula.getOp();
+        int ans = op.calculate(a, b);
+        // 答案超出范围
+        if (ans < 0 || 100 < ans) {
+            return false;
+        }
+        // 算式存在
+        if (set.contains(formula)) {
+            return false;
+        }
+        // 运算符是否平均
+        return map.get(op) <= 50;
     }
 }
