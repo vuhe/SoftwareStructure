@@ -39,9 +39,10 @@ public class ReportTest1 {
     @Test
     public void testV2() {
         System.out.println("v0.2:");
-        // 测试 50 次
-        for (int i = 0; i < 50; i++) {
-            Formula formula = FormulaFactory.getFormula();
+        // 测试生成的算式
+        List<Problem> problems = ProblemFactory.getTestProblem();
+        for (var p : problems) {
+            Formula formula = p.getFormula();
             int a = formula.getA();
             int b = formula.getB();
             if (a <= 0 || 100 <= a) {
@@ -62,9 +63,10 @@ public class ReportTest1 {
     @Test
     public void testV3() {
         System.out.println("v0.3:");
-        // 测试 50 次
-        for (int i = 0; i < 50; i++) {
-            Formula formula = FormulaFactory.getFormula();
+        // 测试生成的算式
+        List<Problem> problems = ProblemFactory.getTestProblem();
+        for (var p : problems) {
+            Formula formula = p.getFormula();
             Problem problem = new Problem(formula);
             int ans = problem.getAns();
             if (ans < 0 || 100 < ans) {
@@ -86,8 +88,9 @@ public class ReportTest1 {
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
         map.put(Operator.minus, 0);
         map.put(Operator.plus, 0);
-        for (int i = 0; i < 50; i++) {
-            Formula formula = FormulaFactory.getFormula();
+        List<Problem> problems = ProblemFactory.getTestProblem();
+        for (var p : problems) {
+            Formula formula = p.getFormula();
             if (set.contains(formula)) {
                 throw new RuntimeException("算式重复");
             }
