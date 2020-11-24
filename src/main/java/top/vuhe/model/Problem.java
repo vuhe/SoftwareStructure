@@ -1,5 +1,8 @@
 package top.vuhe.model;
 
+/**
+ * @author vuhe
+ */
 public class Problem {
     private final Formula formula;
     private final int ans;

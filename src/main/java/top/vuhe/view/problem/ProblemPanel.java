@@ -8,6 +8,9 @@ import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author vuhe
+ */
 public class ProblemPanel extends JPanel {
     private static ProblemPanel PANEL = new ProblemPanel();
     private List<ProblemLabel> labels = new LinkedList<>();

@@ -5,35 +5,44 @@ import top.vuhe.model.Operator;
 
 import java.util.*;
 
+/**
+ * @author vuhe
+ */
 public class FormulaFactory {
-    // 随机数生产器
-    private static final Random random = new Random(47);
-    // 算式统计器
-    private static final Set<Formula> set = new HashSet<>();
-    // 运算符统计器
-    private static final Map<Operator, Integer> map = new EnumMap<>(Operator.class);
+    /**
+     * 随机数生产器
+     */
+    private static final Random RANDOM_NUM = new Random(47);
+    /**
+     * 算式统计器
+     */
+    private static final Set<Formula> FORMULA_SET = new HashSet<>();
+    /**
+     * 运算符统计器
+     */
+    private static final Map<Operator, Integer> OP_MAP = new EnumMap<>(Operator.class);
 
     // 初始化运算符统计器
     static {
-        map.put(Operator.plus, 0);
-        map.put(Operator.minus, 0);
+        OP_MAP.put(Operator.plus, 0);
+        OP_MAP.put(Operator.minus, 0);
     }
 
     public static Formula getFormula() {
         Formula formula;
         do {
             // 1 ～ 99
-            int a = random.nextInt(99) + 1;
+            int a = RANDOM_NUM.nextInt(99) + 1;
             // 随机运算符
             Operator op = randomGetOperator();
             // 1 ～ 99
-            int b = random.nextInt(99) + 1;
+            int b = RANDOM_NUM.nextInt(99) + 1;
             formula = new Formula(a, op, b);
             // 不符合答案重新生产算式
         } while (!checkFormula(formula));
         // 记录生成的算式和运算符
-        set.add(formula);
-        map.put(formula.getOp(), map.get(formula.getOp()) + 1);
+        FORMULA_SET.add(formula);
+        OP_MAP.put(formula.getOp(), OP_MAP.get(formula.getOp()) + 1);
         return formula;
     }
 
@@ -43,7 +52,7 @@ public class FormulaFactory {
      * @return 运算符
      */
     private static Operator randomGetOperator() {
-        if (random.nextInt(2) == 1) {
+        if (RANDOM_NUM.nextInt(2) == 1) {
             return Operator.plus;
         } else {
             return Operator.minus;
@@ -68,10 +77,10 @@ public class FormulaFactory {
             return false;
         }
         // 算式存在
-        if (set.contains(formula)) {
+        if (FORMULA_SET.contains(formula)) {
             return false;
         }
         // 运算符是否平均
-        return map.get(op) <= 25;
+        return OP_MAP.get(op) <= 25;
     }
 }

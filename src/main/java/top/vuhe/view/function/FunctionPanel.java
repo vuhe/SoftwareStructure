@@ -7,6 +7,8 @@ import java.awt.*;
 
 /**
  * 界面下方的布局
+ *
+ * @author vuhe
  */
 public class FunctionPanel extends JPanel {
     public FunctionPanel() {

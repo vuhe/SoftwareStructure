@@ -6,6 +6,9 @@ import top.vuhe.view.problem.ProblemPanel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author vuhe
+ */
 public class MainFrame extends JFrame {
 
     /**

@@ -4,6 +4,9 @@ import top.vuhe.model.Problem;
 
 import javax.swing.*;
 
+/**
+ * @author vuhe
+ */
 public class ProblemLabel extends JLabel {
     private final Problem problem;
     private boolean showAns = false;

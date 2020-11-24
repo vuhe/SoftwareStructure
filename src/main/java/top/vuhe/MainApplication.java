@@ -4,6 +4,9 @@ import top.vuhe.view.MainFrame;
 
 import javax.swing.*;
 
+/**
+ * @author vuhe
+ */
 public class MainApplication {
     /**
      * 使用Swing的线程操作UI

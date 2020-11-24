@@ -2,6 +2,9 @@ package top.vuhe.model;
 
 import java.util.Objects;
 
+/**
+ * @author vuhe
+ */
 public class Formula {
     private final int a;
     private final Operator op;
