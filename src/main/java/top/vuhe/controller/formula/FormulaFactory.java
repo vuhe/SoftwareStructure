@@ -1,5 +1,6 @@
 package top.vuhe.controller.formula;
 
+import static top.vuhe.model.Context.ANS_MAX;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
 
@@ -73,7 +74,7 @@ public class FormulaFactory {
         Operator op = formula.getOp();
         int ans = op.calculate(a, b);
         // 答案超出范围
-        if (ans < 0 || 100 < ans) {
+        if (ans < 0 || ANS_MAX < ans) {
             return false;
         }
         // 算式存在
