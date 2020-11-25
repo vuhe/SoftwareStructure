@@ -18,10 +18,47 @@ public class Formula {
      * @param op 运算符
      * @param b  第二个数
      */
-    public Formula(int a, Operator op, int b) {
+    private Formula(int a, Operator op, int b) {
         this.a = a;
         this.op = op;
         this.b = b;
+    }
+
+    public static class Builder {
+        private int a;
+        private Operator op;
+        private int b;
+
+        public Formula build() {
+            return new Formula(a, op, b);
+        }
+
+        public int getA() {
+            return a;
+        }
+
+        public Builder setA(int a) {
+            this.a = a;
+            return this;
+        }
+
+        public Operator getOp() {
+            return op;
+        }
+
+        public Builder setOp(Operator op) {
+            this.op = op;
+            return this;
+        }
+
+        public int getB() {
+            return b;
+        }
+
+        public Builder setB(int b) {
+            this.b = b;
+            return this;
+        }
     }
 
     public int getA() {
