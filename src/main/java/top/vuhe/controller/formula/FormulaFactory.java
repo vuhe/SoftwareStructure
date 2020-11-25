@@ -2,6 +2,8 @@ package top.vuhe.controller.formula;
 
 import static top.vuhe.model.Context.ANS_MAX;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
 
@@ -15,6 +17,7 @@ import java.util.*;
  * @author vuhe
  */
 public class FormulaFactory {
+    private static final Logger logger = LoggerFactory.getLogger(FormulaFactory.class);
     /**
      * 随机数生产器
      */
@@ -51,6 +54,7 @@ public class FormulaFactory {
         FORMULA_SET.add(formula);
         OP_MAP.put(formula.getOp(), OP_MAP.get(formula.getOp()) + 1);
 
+        logger.debug("build: " + formula);
         return formula;
     }
 

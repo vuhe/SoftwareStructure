@@ -1,6 +1,8 @@
 package top.vuhe;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.vuhe.controller.problem.ProblemFactory;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
@@ -9,14 +11,16 @@ import top.vuhe.model.Problem;
 import java.util.*;
 
 public class ReportTest1 {
+    private static final Logger logger = LoggerFactory.getLogger(ReportTest1.class);
+
     /**
      * 版本 v0.1 测试
-     *
+     * <p>
      * 测试算式的产生和运算
      */
     @Test
     public void testV1() {
-        System.out.println("v0.1 算式：");
+        logger.info("v0.1 算式：");
         Problem problem = ProblemFactory.getTestProblem();
         int i = 0;
         for (var formula : problem) {
@@ -32,12 +36,12 @@ public class ReportTest1 {
 
     /**
      * 版本 v0.2 测试
-     *
+     * <p>
      * 测试算式的运算值是否符合 (0, 100)
      */
     @Test
     public void testV2() {
-        System.out.println("v0.2:");
+        logger.info("v0.2:");
         // 测试生成的算式
         Problem problem = ProblemFactory.getTestProblem();
         for (var formula : problem) {
@@ -50,17 +54,17 @@ public class ReportTest1 {
                 throw new RuntimeException("随机数不符合 (0, 100)");
             }
         }
-        System.out.println("运算值符合 (0, 100)\n");
+        logger.info("运算值符合 (0, 100)\n");
     }
 
     /**
      * 版本 v0.3 测试
-     *
+     * <p>
      * 测试算式的运算结果是否符合 [0, 100]
      */
     @Test
     public void testV3() {
-        System.out.println("v0.3:");
+        logger.info("v0.3:");
         // 测试生成的算式
         Problem problem = ProblemFactory.getTestProblem();
         for (var formula : problem) {
@@ -69,17 +73,17 @@ public class ReportTest1 {
                 throw new RuntimeException("结果不符合 (0, 100)");
             }
         }
-        System.out.println("运算结果符合 [0, 100]\n");
+        logger.info("运算结果符合 [0, 100]\n");
     }
 
     /**
      * 版本 v0.4 测试
-     *
+     * <p>
      * 测试「算式是否重复」以及「运算符的平均度」
      */
     @Test
     public void testV4() {
-        System.out.println("v0.4:");
+        logger.info("v0.4:");
         Set<Formula> set = new HashSet<>();
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
         map.put(Operator.minus, 0);
@@ -95,6 +99,6 @@ public class ReportTest1 {
             set.add(formula);
             map.put(formula.getOp(), map.get(formula.getOp()) + 1);
         }
-        System.out.println("算式没有重复，运算符平均生成\n");
+        logger.info("算式没有重复，运算符平均生成\n");
     }
 }

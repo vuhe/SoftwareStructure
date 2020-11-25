@@ -1,5 +1,7 @@
 package top.vuhe.view.function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.vuhe.view.problem.ProblemPanel;
 
 import javax.swing.*;
@@ -11,6 +13,8 @@ import java.awt.*;
  * @author vuhe
  */
 public class FunctionPanel extends JPanel {
+    private static final Logger logger = LoggerFactory.getLogger(FunctionPanel.class);
+
     public FunctionPanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -23,9 +27,12 @@ public class FunctionPanel extends JPanel {
             ProblemPanel panel = ProblemPanel.getProblemPanel();
             panel.showAns();
             button.setEnabled(false);
+            logger.info("push button ans disable it.");
         }));
 
         // 添加
         add(button);
+
+        logger.info("build FunctionPanel.");
     }
 }

@@ -2,6 +2,8 @@ package top.vuhe.controller.problem;
 
 import static top.vuhe.model.Context.FORMULA_NUM;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Problem;
 import top.vuhe.controller.formula.FormulaFactory;
@@ -17,6 +19,7 @@ import java.util.List;
  * @author vuhe
  */
 public class ProblemFactory {
+    private static final Logger logger = LoggerFactory.getLogger(ProblemFactory.class);
     private static Problem PROBLEM = null;
 
     public static Problem getTestProblem() {
@@ -29,7 +32,13 @@ public class ProblemFactory {
                 formulas.add(FormulaFactory.getFormula());
             }
             PROBLEM = Problem.from(formulas);
+
+            logger.info("build new Problem.");
+
         }
+
+        logger.info("return a Problem.");
+
         return PROBLEM;
     }
 }
