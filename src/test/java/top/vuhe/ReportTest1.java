@@ -1,7 +1,6 @@
 package top.vuhe;
 
 import org.junit.Test;
-import top.vuhe.controller.formula.FormulaFactory;
 import top.vuhe.controller.problem.ProblemFactory;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
@@ -18,15 +17,15 @@ public class ReportTest1 {
     @Test
     public void testV1() {
         System.out.println("v0.1 算式：");
-        List<Problem> problems = ProblemFactory.getTestProblem();
-        for (int i = 0; i < 50; i++) {
+        Problem problem = ProblemFactory.getTestProblem();
+        int i = 0;
+        for (var formula : problem) {
             if (i != 0 && i % 5 == 0) {
                 System.out.println();
             }
-            Problem problem = problems.get(i);
-            Formula formula = problem.getFormula();
             System.out.print(formula);
-            System.out.printf("%3d   ", problem.getAns());
+            System.out.printf("%3d   ", formula.getAns());
+            i++;
         }
         System.out.println("\n");
     }
@@ -40,9 +39,8 @@ public class ReportTest1 {
     public void testV2() {
         System.out.println("v0.2:");
         // 测试生成的算式
-        List<Problem> problems = ProblemFactory.getTestProblem();
-        for (var p : problems) {
-            Formula formula = p.getFormula();
+        Problem problem = ProblemFactory.getTestProblem();
+        for (var formula : problem) {
             int a = formula.getA();
             int b = formula.getB();
             if (a <= 0 || 100 <= a) {
@@ -64,11 +62,9 @@ public class ReportTest1 {
     public void testV3() {
         System.out.println("v0.3:");
         // 测试生成的算式
-        List<Problem> problems = ProblemFactory.getTestProblem();
-        for (var p : problems) {
-            Formula formula = p.getFormula();
-            Problem problem = new Problem(formula);
-            int ans = problem.getAns();
+        Problem problem = ProblemFactory.getTestProblem();
+        for (var formula : problem) {
+            int ans = formula.getAns();
             if (ans < 0 || 100 < ans) {
                 throw new RuntimeException("结果不符合 (0, 100)");
             }
@@ -88,9 +84,8 @@ public class ReportTest1 {
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
         map.put(Operator.minus, 0);
         map.put(Operator.plus, 0);
-        List<Problem> problems = ProblemFactory.getTestProblem();
-        for (var p : problems) {
-            Formula formula = p.getFormula();
+        Problem problem = ProblemFactory.getTestProblem();
+        for (var formula : problem) {
             if (set.contains(formula)) {
                 throw new RuntimeException("算式重复");
             }

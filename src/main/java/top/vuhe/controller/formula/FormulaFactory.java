@@ -8,6 +8,10 @@ import top.vuhe.model.Operator;
 import java.util.*;
 
 /**
+ * 算式生成器
+ * <p>
+ * 职责：用于生成符合要求的算式
+ *
  * @author vuhe
  */
 public class FormulaFactory {
@@ -72,10 +76,7 @@ public class FormulaFactory {
      * @return 是否符合要求
      */
     private static boolean checkFormula(Formula.Builder builder) {
-        int a = builder.getA();
-        int b = builder.getB();
-        Operator op = builder.getOp();
-        int ans = op.calculate(a, b);
+        int ans = builder.getAns();
         // 答案超出范围
         if (ans < 0 || ANS_MAX < ans) {
             return false;
@@ -85,6 +86,6 @@ public class FormulaFactory {
             return false;
         }
         // 运算符是否平均
-        return OP_MAP.get(op) <= 25;
+        return OP_MAP.get(builder.getOp()) <= 25;
     }
 }

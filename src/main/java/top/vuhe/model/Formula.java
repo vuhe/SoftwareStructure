@@ -3,12 +3,17 @@ package top.vuhe.model;
 import java.util.Objects;
 
 /**
+ * 算式实体
+ * <p>
+ * 一个算式的所有信息
+ *
  * @author vuhe
  */
 public class Formula {
     private final int a;
     private final Operator op;
     private final int b;
+    private final int ans;
 
     /**
      * 初始化算式
@@ -22,12 +27,18 @@ public class Formula {
         this.a = a;
         this.op = op;
         this.b = b;
+        ans = op.calculate(a, b);
     }
 
+    /**
+     * 构建者模式
+     * 此模式是用于对对象生成做封装，并提供默认值
+     * 为之后的可能承载更多的信息做准备
+     */
     public static class Builder {
-        private int a;
-        private Operator op;
-        private int b;
+        private int a = 1;
+        private Operator op = Operator.plus;
+        private int b = 1;
 
         public Formula build() {
             return new Formula(a, op, b);
@@ -59,6 +70,10 @@ public class Formula {
             this.b = b;
             return this;
         }
+
+        public int getAns() {
+            return op.calculate(a, b);
+        }
     }
 
     public int getA() {
@@ -71,6 +86,10 @@ public class Formula {
 
     public int getB() {
         return b;
+    }
+
+    public int getAns() {
+        return ans;
     }
 
     @Override
@@ -100,7 +119,8 @@ public class Formula {
         Formula formula = (Formula) o;
         return a == formula.a &&
                 b == formula.b &&
-                op == formula.op;
+                op == formula.op &&
+                ans == formula.ans;
     }
 
     /**
@@ -110,6 +130,6 @@ public class Formula {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(a, op, b);
+        return Objects.hash(a, op, b, ans);
     }
 }
