@@ -24,7 +24,7 @@ public class MainTest {
     @DisplayName("面向过程测试")
     public void test() {
         logger.info("v0.x 面向过程测试");
-        Problem problem = ProblemFactory.getTestProblem();
+        Problem problem = ProblemFactory.of().create();
         int i = 0;
         for (var formula : problem) {
             if (i != 0 && i % 5 == 0) {

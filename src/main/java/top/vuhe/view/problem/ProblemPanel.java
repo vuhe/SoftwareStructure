@@ -24,7 +24,7 @@ public class ProblemPanel extends JPanel {
      */
     private ProblemPanel() {
         setLayout(new GridLayout(10,5, 5, 5));
-        Problem problem = ProblemFactory.getTestProblem();
+        Problem problem = ProblemFactory.of().create();
         for (var i : problem) {
             ProblemLabel problemLabel = new ProblemLabel(i);
             add(problemLabel);

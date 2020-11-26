@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'top.vuhe'
-version '0.4.1'
+version '1.0'
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
@@ -37,6 +37,7 @@ dependencies {
     // 测试依赖
     implementation 'org.jetbrains:annotations:19.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
     // 日志依赖

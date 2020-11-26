@@ -38,7 +38,7 @@ public class ProblemTest {
     public void checkRepeatedFormula() {
         logger.info("开始运算式生成不重复测试");
         for (int i = 0; i < N; i++) {
-            Problem problem = ProblemFactory.getTestProblem();
+            Problem problem = ProblemFactory.of().create();
             Set<Formula> set = new HashSet<>();
             for (var formula : problem) {
                 Assertions.assertTrue(set.add(formula));
@@ -52,7 +52,7 @@ public class ProblemTest {
     public void checkNumberOfOperators() {
         logger.info("开始运算符在指定范围测试");
         for (int i = 0; i < N; i++) {
-            Problem problem = ProblemFactory.getTestProblem();
+            Problem problem = ProblemFactory.of().create();
             Map<Operator, Integer> map = new EnumMap<>(Operator.class);
             map.put(Operator.minus, 0);
             map.put(Operator.plus, 0);
