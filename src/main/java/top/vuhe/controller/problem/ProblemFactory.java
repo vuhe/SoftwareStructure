@@ -5,40 +5,133 @@ import static top.vuhe.model.Context.FORMULA_NUM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.model.Formula;
+import top.vuhe.model.Operator;
 import top.vuhe.model.Problem;
 import top.vuhe.controller.formula.FormulaFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 问题生成器
  * <p>
  * 职责：用于一套习题的生成
+ * 检查：一套题中的重复和算式出现概率
  *
  * @author vuhe
  */
 public class ProblemFactory {
     private static final Logger logger = LoggerFactory.getLogger(ProblemFactory.class);
-    private static Problem PROBLEM = null;
+    /**
+     * 算式统计器
+     */
+    private final Set<Formula> formulaSet = new HashSet<>();
+    /**
+     * 生成的问题
+     */
+    private Problem problem;
+    /**
+     * 加法算式的数量
+     */
+    private final int plus;
+    /**
+     * 减法算式的数量
+     */
+    private final int minus;
 
-    public static Problem getTestProblem() {
-        List<Formula> formulas = new ArrayList<>(51);
-        if (PROBLEM == null) {
-            for (int i = 0; i < FORMULA_NUM; i++) {
-                // 用算式方法工厂创建一个算式
-                // 用刚刚创建的算式，生成一个问题
-                // 加入问题集合
-                formulas.add(FormulaFactory.getFormula());
-            }
-            PROBLEM = Problem.from(formulas);
+    /**
+     * 构造方法
+     * <p>
+     * 默认不开放，以便将来扩展使用
+     *
+     * @param plus 加法出现百分比
+     */
+    private ProblemFactory(int plus) {
+        this.plus = (int) (plus * 0.01 * FORMULA_NUM);
+        this.minus = FORMULA_NUM - this.plus;
+    }
 
-            logger.info("build new Problem.");
+    /**
+     * 默认构造
+     * <p>
+     * 比例 50% 50%
+     *
+     * @return 构造工厂
+     */
+    public static ProblemFactory of() {
+        return of(50, 50);
+    }
 
+    /**
+     * 变比例构造
+     * <p>
+     * 比例 plus% minus%
+     *
+     * @param plus  加法出现比例
+     * @param minus 减法出现比例
+     * @return 构造工厂
+     */
+    public static ProblemFactory of(int plus, int minus) {
+        if (plus + minus != 100) {
+            logger.error("The calculation formula accounts for not 100% !");
+            throw new IllegalArgumentException("The calculation formula accounts for not 100%.");
+        }
+        return new ProblemFactory(plus);
+    }
+
+    /**
+     * 生成一套习题
+     *
+     * @return 习题
+     */
+    public Problem create() {
+        if (problem == null) {
+            buildProblem();
+        }
+        logger.info("return a Problem.");
+        return problem;
+    }
+
+    /**
+     * 构建一套习题
+     * <p>
+     * 习题中加法减法比例已在初始化化时确定
+     * 按顺序生成后打乱顺序
+     */
+    private void buildProblem() {
+        List<Formula> formulas = new ArrayList<>(FORMULA_NUM + 1);
+        // 加法
+        Operator op = Operator.plus;
+        for (int i = 0; i < plus; i++) {
+            // 用刚刚创建的算式，生成一个加法算式
+            // 加入问题集合
+            formulas.add(checkAndBuildFormula(op));
+        }
+        // 减法
+        op = Operator.minus;
+        for (int i = 0; i < minus; i++) {
+            // 用刚刚创建的算式，生成一个减法算式
+            // 加入问题集合
+            formulas.add(checkAndBuildFormula(op));
         }
 
-        logger.info("return a Problem.");
+        // 打乱
+        Collections.shuffle(formulas);
+        logger.info("build new Problem.");
 
-        return PROBLEM;
+        this.problem = Problem.from(formulas);
+    }
+
+    /**
+     * 检查算式是否存在
+     *
+     * @param op 运算符
+     * @return 检查过的算式
+     */
+    private Formula checkAndBuildFormula(Operator op) {
+        Formula formula;
+        do {
+            formula = FormulaFactory.getFormula(op);
+        } while (!formulaSet.add(formula));
+        return formula;
     }
 }
