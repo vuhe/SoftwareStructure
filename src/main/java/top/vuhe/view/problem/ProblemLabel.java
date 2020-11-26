@@ -1,17 +1,20 @@
 package top.vuhe.view.problem;
 
-import top.vuhe.model.Problem;
+import top.vuhe.model.Formula;
 
 import javax.swing.*;
 
+/**
+ * @author vuhe
+ */
 public class ProblemLabel extends JLabel {
-    private final Problem problem;
+    private final Formula formula;
     private boolean showAns = false;
 
-    public ProblemLabel(Problem problem) {
-        this.problem = problem;
+    public ProblemLabel(Formula formula) {
+        this.formula = formula;
         setSize(100, 10);
-        setText(problem.getFormula().toString());
+        setText(formula.toString());
     }
 
     /**
@@ -19,7 +22,7 @@ public class ProblemLabel extends JLabel {
      */
     public void showAns() {
         if (!showAns) {
-            setText(problem.getFormula() + "" + problem.getAns());
+            setText(formula + "" + formula.getAns());
             showAns = true;
         }
     }

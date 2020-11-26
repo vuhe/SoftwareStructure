@@ -1,19 +1,26 @@
 package top.vuhe.view;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.vuhe.view.function.FunctionPanel;
 import top.vuhe.view.problem.ProblemPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author vuhe
+ */
 public class MainFrame extends JFrame {
+    private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
     /**
      * 用静态函数返回（工厂模式）
      * 以便之后可能的扩展
      */
-    public static void getMainFrame() {
+    public static void create() {
         new MainFrame();
+        logger.info("build MainFrame.");
     }
 
     private MainFrame() {

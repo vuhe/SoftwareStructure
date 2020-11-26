@@ -1,39 +1,60 @@
 package top.vuhe.controller.formula;
 
+import static top.vuhe.model.Context.ANS_MAX;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
 
 import java.util.*;
 
+/**
+ * 算式生成器
+ * <p>
+ * 职责：用于生成符合要求的算式
+ *
+ * @author vuhe
+ */
 public class FormulaFactory {
-    // 随机数生产器
-    private static final Random random = new Random(47);
-    // 算式统计器
-    private static final Set<Formula> set = new HashSet<>();
-    // 运算符统计器
-    private static final Map<Operator, Integer> map = new EnumMap<>(Operator.class);
+    private static final Logger logger = LoggerFactory.getLogger(FormulaFactory.class);
+    /**
+     * 随机数生产器
+     */
+    private static final Random RANDOM_NUM = new Random(47);
+    /**
+     * 算式统计器
+     */
+    private static final Set<Formula> FORMULA_SET = new HashSet<>();
+    /**
+     * 运算符统计器
+     */
+    private static final Map<Operator, Integer> OP_MAP = new EnumMap<>(Operator.class);
 
     // 初始化运算符统计器
     static {
-        map.put(Operator.plus, 0);
-        map.put(Operator.minus, 0);
+        OP_MAP.put(Operator.plus, 0);
+        OP_MAP.put(Operator.minus, 0);
     }
 
     public static Formula getFormula() {
-        Formula formula;
+        Formula.Builder builder = new Formula.Builder();
+
         do {
-            // 1 ～ 99
-            int a = random.nextInt(99) + 1;
+            // 两个数数范围：1 ～ 99
             // 随机运算符
-            Operator op = randomGetOperator();
-            // 1 ～ 99
-            int b = random.nextInt(99) + 1;
-            formula = new Formula(a, op, b);
+            builder.setA(RANDOM_NUM.nextInt(99) + 1)
+                    .setOp(randomGetOperator())
+                    .setB(RANDOM_NUM.nextInt(99) + 1);
             // 不符合答案重新生产算式
-        } while (!checkFormula(formula));
+        } while (!checkFormula(builder));
+
+        Formula formula = builder.build();
         // 记录生成的算式和运算符
-        set.add(formula);
-        map.put(formula.getOp(), map.get(formula.getOp()) + 1);
+        FORMULA_SET.add(formula);
+        OP_MAP.put(formula.getOp(), OP_MAP.get(formula.getOp()) + 1);
+
+        logger.debug("build: " + formula);
         return formula;
     }
 
@@ -43,7 +64,7 @@ public class FormulaFactory {
      * @return 运算符
      */
     private static Operator randomGetOperator() {
-        if (random.nextInt(2) == 1) {
+        if (RANDOM_NUM.nextInt(2) == 1) {
             return Operator.plus;
         } else {
             return Operator.minus;
@@ -55,23 +76,20 @@ public class FormulaFactory {
      * <p>
      * 符合答案标准：(0 <= ans <= 100) 且 算式不重复
      *
-     * @param formula 算式
+     * @param builder 算式构建者
      * @return 是否符合要求
      */
-    private static boolean checkFormula(Formula formula) {
-        int a = formula.getA();
-        int b = formula.getB();
-        Operator op = formula.getOp();
-        int ans = op.calculate(a, b);
+    private static boolean checkFormula(Formula.Builder builder) {
+        int ans = builder.getAns();
         // 答案超出范围
-        if (ans < 0 || 100 < ans) {
+        if (ans < 0 || ANS_MAX < ans) {
             return false;
         }
         // 算式存在
-        if (set.contains(formula)) {
+        if (FORMULA_SET.contains(builder.build())) {
             return false;
         }
         // 运算符是否平均
-        return map.get(op) <= 25;
+        return OP_MAP.get(builder.getOp()) <= 25;
     }
 }
