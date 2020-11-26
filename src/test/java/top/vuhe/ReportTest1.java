@@ -1,5 +1,6 @@
 package top.vuhe;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,15 @@ import java.util.*;
 
 public class ReportTest1 {
     private static final Logger logger = LoggerFactory.getLogger(ReportTest1.class);
+    private static Problem problem;
+
+    /**
+     * 初始化习题对象
+     */
+    @BeforeClass
+    public static void before() {
+        problem = ProblemFactory.getTestProblem();
+    }
 
     /**
      * 版本 v0.1 测试
@@ -21,7 +31,6 @@ public class ReportTest1 {
     @Test
     public void testV1() {
         logger.info("v0.1 算式：");
-        Problem problem = ProblemFactory.getTestProblem();
         int i = 0;
         for (var formula : problem) {
             if (i != 0 && i % 5 == 0) {
@@ -43,7 +52,6 @@ public class ReportTest1 {
     public void testV2() {
         logger.info("v0.2:");
         // 测试生成的算式
-        Problem problem = ProblemFactory.getTestProblem();
         for (var formula : problem) {
             int a = formula.getA();
             int b = formula.getB();
@@ -66,7 +74,6 @@ public class ReportTest1 {
     public void testV3() {
         logger.info("v0.3:");
         // 测试生成的算式
-        Problem problem = ProblemFactory.getTestProblem();
         for (var formula : problem) {
             int ans = formula.getAns();
             if (ans < 0 || 100 < ans) {
@@ -88,7 +95,6 @@ public class ReportTest1 {
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
         map.put(Operator.minus, 0);
         map.put(Operator.plus, 0);
-        Problem problem = ProblemFactory.getTestProblem();
         for (var formula : problem) {
             if (set.contains(formula)) {
                 throw new RuntimeException("算式重复");
