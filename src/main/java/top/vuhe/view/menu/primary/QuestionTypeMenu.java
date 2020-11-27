@@ -2,7 +2,7 @@ package top.vuhe.view.menu.primary;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.observer.RebuildQuestionSubject;
+import top.vuhe.controller.observer.CreateQuestionSubject;
 import top.vuhe.controller.observer.intf.AbstractSubject;
 import top.vuhe.model.Context;
 
@@ -84,7 +84,7 @@ class MixTypeRadioButton extends JRadioButtonMenuItem {
             Context.setProportionNumber(plus, minus);
 
             // 通知订阅者更新视图
-            AbstractSubject subject = RebuildQuestionSubject.instance();
+            AbstractSubject subject = CreateQuestionSubject.instance();
             subject.notifyObservers("更新问题");
         });
     }

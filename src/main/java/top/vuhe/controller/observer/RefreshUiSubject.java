@@ -2,27 +2,28 @@ package top.vuhe.controller.observer;
 
 import top.vuhe.controller.observer.intf.AbstractSubject;
 import top.vuhe.controller.observer.intf.Observer;
+import top.vuhe.view.MainFrame;
 import top.vuhe.view.bottom.FunctionPanel;
 import top.vuhe.view.center.QuestionPanel;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 习题比例变化订阅
- * <p>
- * 用于菜单改变习题变化时通知其它需要更改的组件
- *
  * @author vuhe
  */
-public class RebuildQuestionSubject extends AbstractSubject {
-    public static final String SUBJECT_NAME = "重建习题";
+public class RefreshUiSubject extends AbstractSubject {
+    public static final String NAME = "刷新UI";
     private final List<Observer> list = new ArrayList<>();
-    private static final AbstractSubject INSTANCE = new RebuildQuestionSubject();
+    private static final AbstractSubject INSTANCE = new RefreshUiSubject();
 
-    private RebuildQuestionSubject() {
+    private RefreshUiSubject() {
+        // 先通知更新题目
         addObserver(QuestionPanel.instance());
         addObserver(FunctionPanel.instance());
+        // 再通知更新面板
+        addObserver(MainFrame.create());
     }
 
     public static AbstractSubject instance() {
@@ -36,13 +37,15 @@ public class RebuildQuestionSubject extends AbstractSubject {
 
     @Override
     public void deleteObserver(Observer o) {
-        list.remove(o);
+
     }
 
     @Override
     public void notifyObservers(String message) {
-        for (var o : list) {
-            o.update(message, SUBJECT_NAME);
-        }
+        SwingUtilities.invokeLater(() -> {
+            for (var o : list) {
+                o.update(message, NAME);
+            }
+        });
     }
 }

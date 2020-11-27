@@ -2,7 +2,8 @@ package top.vuhe.view.bottom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.observer.RebuildQuestionSubject;
+import top.vuhe.controller.observer.CreateQuestionSubject;
+import top.vuhe.controller.observer.RefreshUiSubject;
 import top.vuhe.controller.observer.intf.Observer;
 import top.vuhe.view.center.QuestionPanel;
 
@@ -51,7 +52,7 @@ public class FunctionPanel extends JPanel implements Observer {
      */
     @Override
     public void update(String message, String subjectName) {
-        if (RebuildQuestionSubject.SUBJECT_NAME.equals(subjectName)) {
+        if (RefreshUiSubject.NAME.equals(subjectName)) {
             showAns.setEnabled(true);
         }
     }
