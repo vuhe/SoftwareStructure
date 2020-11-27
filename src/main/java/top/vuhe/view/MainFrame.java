@@ -50,18 +50,26 @@ public class MainFrame extends JFrame implements Observer {
 
     @Override
     public void update(String message, String subjectName) {
+        // 创建问题通知
         if (CreateQuestionSubject.NAME.equals(subjectName)) {
             startLoading();
+            // 完成创建，刷新 UI 通知
         } else if (RefreshUiSubject.NAME.equals(subjectName)) {
             endLoading();
         }
     }
 
+    /**
+     * 开始加载
+     */
     private void startLoading() {
         remove(QuestionPanel.instance());
         add(LoadingPanel.instance(), BorderLayout.CENTER);
     }
 
+    /**
+     * 完成加载
+     */
     private void endLoading() {
         remove(LoadingPanel.instance());
         add(QuestionPanel.instance(), BorderLayout.CENTER);

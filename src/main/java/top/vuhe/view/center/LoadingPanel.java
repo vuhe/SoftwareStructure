@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * 加载中页面
+ *
  * @author vuhe
  */
 public class LoadingPanel extends JPanel {
@@ -17,7 +19,7 @@ public class LoadingPanel extends JPanel {
         setLayout(new FlowLayout(FlowLayout.CENTER));
         add(new JLabel("加载中……"));
     }
-    
+
     public static JPanel instance() {
         logger.info("加载中……");
         return INSTANCE;

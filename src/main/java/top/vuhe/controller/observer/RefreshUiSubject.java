@@ -42,6 +42,7 @@ public class RefreshUiSubject extends AbstractSubject {
 
     @Override
     public void notifyObservers(String message) {
+        // 此处使用 Swing 线程处理 UI
         SwingUtilities.invokeLater(() -> {
             for (var o : list) {
                 o.update(message, NAME);

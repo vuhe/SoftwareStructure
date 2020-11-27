@@ -2,7 +2,6 @@ package top.vuhe.view.bottom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.observer.CreateQuestionSubject;
 import top.vuhe.controller.observer.RefreshUiSubject;
 import top.vuhe.controller.observer.intf.Observer;
 import top.vuhe.view.center.QuestionPanel;
@@ -45,7 +44,7 @@ public class FunctionPanel extends JPanel implements Observer {
     }
 
     /**
-     * 用于接受来自菜单栏的信息通知
+     * 用于接受来自UI刷新的通知
      *
      * @param message     信息
      * @param subjectName 订阅名

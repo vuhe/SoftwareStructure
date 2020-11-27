@@ -20,7 +20,9 @@ public class MainApplication {
      */
     public static void main(String[] args) {
         logger.info("start system, welcome use this system!");
+        // UI 线程
         SwingUtilities.invokeLater(MainFrame::create);
+        // 初始化问题
         CreateQuestionSubject.instance().notifyObservers("init");
     }
 }

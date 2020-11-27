@@ -9,6 +9,8 @@ import top.vuhe.model.Context;
 import javax.swing.*;
 
 /**
+ * 习题模式菜单
+ *
  * @author vuhe
  */
 public class QuestionTypeMenu extends JMenu {
@@ -83,7 +85,7 @@ class MixTypeRadioButton extends JRadioButtonMenuItem {
             // 更改全局比例
             Context.setProportionNumber(plus, minus);
 
-            // 通知订阅者更新视图
+            // 通知订阅者更新题目
             AbstractSubject subject = CreateQuestionSubject.instance();
             subject.notifyObservers("更新问题");
         });
@@ -91,7 +93,7 @@ class MixTypeRadioButton extends JRadioButtonMenuItem {
 
     public static JRadioButtonMenuItem instance() {
         logger.info("创建「混合题目」按钮");
-        return new MixTypeRadioButton(50, 50);
+        return HALF_HALF;
     }
 
     public static JRadioButtonMenuItem instance(int plus, int minus) {
