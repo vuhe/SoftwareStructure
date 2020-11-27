@@ -6,10 +6,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.problem.ProblemFactory;
-import top.vuhe.model.Formula;
-import top.vuhe.model.Operator;
-import top.vuhe.model.Problem;
+import top.vuhe.controller.factory.QuestionFactory;
+import top.vuhe.model.entity.Formula;
+import top.vuhe.model.entity.Operator;
+import top.vuhe.model.entity.Question;
 
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -21,8 +21,8 @@ import java.util.Set;
  *
  * @author vuhe
  */
-public class ProblemTest {
-    private static final Logger logger = LoggerFactory.getLogger(ProblemTest.class);
+public class QuestionTest {
+    private static final Logger logger = LoggerFactory.getLogger(QuestionTest.class);
     /**
      * 默认检验问题数
      */
@@ -38,9 +38,9 @@ public class ProblemTest {
     public void checkRepeatedFormula() {
         logger.info("开始运算式生成不重复测试");
         for (int i = 0; i < N; i++) {
-            Problem problem = ProblemFactory.of().create();
+            Question question = QuestionFactory.of().create();
             Set<Formula> set = new HashSet<>();
-            for (var formula : problem) {
+            for (var formula : question) {
                 Assertions.assertTrue(set.add(formula));
             }
         }
@@ -52,11 +52,11 @@ public class ProblemTest {
     public void checkNumberOfOperators() {
         logger.info("开始运算符在指定范围测试");
         for (int i = 0; i < N; i++) {
-            Problem problem = ProblemFactory.of().create();
+            Question question = QuestionFactory.of().create();
             Map<Operator, Integer> map = new EnumMap<>(Operator.class);
             map.put(Operator.minus, 0);
             map.put(Operator.plus, 0);
-            for (var formula : problem) {
+            for (var formula : question) {
                 map.put(formula.getOp(), map.get(formula.getOp()) + 1);
             }
             Assertions.assertSame(map.get(Operator.minus), map.get(Operator.plus));

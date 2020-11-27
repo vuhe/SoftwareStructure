@@ -1,4 +1,4 @@
-#  (2020-11-26)
+#  (2020-11-27)
 
 
 ### Bug Fixes
@@ -13,11 +13,15 @@
 
 ### Features
 
+* **changelog:** 添加 changelog ([7c10774](https://github.com/vuhe/SoftwareStructure/commit/7c10774daafb543743a461b9ea1bb199db1f880d))
 * **formula:** 完成算式不重复 ([1bed8fb](https://github.com/vuhe/SoftwareStructure/commit/1bed8fbbe945c77679dd6fde080af3f655692140))
 * **formula:** 完成运算符平均化 ([0b9bec2](https://github.com/vuhe/SoftwareStructure/commit/0b9bec23bfc67af5d1e9e51141da684844f72aed))
 * **formula:** 算式换用构建者模式 ([f567b5a](https://github.com/vuhe/SoftwareStructure/commit/f567b5af9ba2e02330aa18c701b88f42ab9a1398))
 * **log:** 添加系统日志 ([c041d86](https://github.com/vuhe/SoftwareStructure/commit/c041d8677d5bbfdb4e28508c1982f7a8aa60f85c))
+* **menu:** 添加菜单栏 ([a4dcd68](https://github.com/vuhe/SoftwareStructure/commit/a4dcd6889c7c4a97c81ff88553dd7f5fc4185343))
 * **model:** 添加应用上下文 ([213038e](https://github.com/vuhe/SoftwareStructure/commit/213038e91bdae411fcf8deda85c8071cbe368df0))
+* **problem:** 添加更换题目类型 ([82e848c](https://github.com/vuhe/SoftwareStructure/commit/82e848ca3900eebd1bffc01b4dd5848a2ee09a25))
+* **problem:** 隔离问题工厂职责 ([46b1bac](https://github.com/vuhe/SoftwareStructure/commit/46b1baccdb70c85ba8bf8706a675410495700679))
 * **Problem:** 更换问题类职责 ([bdb6538](https://github.com/vuhe/SoftwareStructure/commit/bdb65386d31546acbed3ddfdd92a64247069fb0f))
 * 切换至swing组件 ([a46ed1f](https://github.com/vuhe/SoftwareStructure/commit/a46ed1ff2082b6fb04ac65b371a79248fb18d58c))
 * 完成基本功能 ([6c3a198](https://github.com/vuhe/SoftwareStructure/commit/6c3a198ed8de6a72a6e571f0de201871c943ae55))
@@ -28,6 +32,5 @@
 * 建立基本文件 ([04146b7](https://github.com/vuhe/SoftwareStructure/commit/04146b78021d2f6203247f34ba47783b6e47de6b))
 * 整理调整架构 ([150d63f](https://github.com/vuhe/SoftwareStructure/commit/150d63f86a868f949785ec561590a3325aa3369d))
 * 新增显示答案 ([7e3021c](https://github.com/vuhe/SoftwareStructure/commit/7e3021c583d9d1aca7c78deed86a674c2d2824e7))
-
 
 
