@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
     /**
-     * 用静态函数返回（工厂模式）
+     * 用静态函数返回（单例模式）
      * 以便之后可能的扩展
      */
     public static void create() {
@@ -35,9 +35,9 @@ public class MainFrame extends JFrame {
 
         // 默认为BorderLayout布局
         // 设置题目在中心
-        add(ProblemPanel.getProblemPanel(), BorderLayout.CENTER);
+        add(ProblemPanel.instance(), BorderLayout.CENTER);
         // 设置按钮操作在下方
-        add(new FunctionPanel(), BorderLayout.SOUTH);
+        add(FunctionPanel.instance(), BorderLayout.SOUTH);
 
         // 准备好后再显示，减少空白等待时间
         setVisible(true);

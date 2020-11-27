@@ -1,15 +1,16 @@
 package top.vuhe.controller.problem;
 
-import static top.vuhe.model.Context.FORMULA_NUM;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.vuhe.model.Context;
 import top.vuhe.model.Formula;
 import top.vuhe.model.Operator;
 import top.vuhe.model.Problem;
 import top.vuhe.controller.formula.FormulaFactory;
 
 import java.util.*;
+
+import static top.vuhe.model.Context.*;
 
 /**
  * 问题生成器
@@ -29,53 +30,23 @@ public class ProblemFactory {
      * 生成的问题
      */
     private Problem problem;
-    /**
-     * 加法算式的数量
-     */
-    private final int plus;
-    /**
-     * 减法算式的数量
-     */
-    private final int minus;
 
     /**
      * 构造方法
      * <p>
      * 默认不开放，以便将来扩展使用
-     *
-     * @param plus 加法出现百分比
      */
-    private ProblemFactory(int plus) {
-        this.plus = (int) (plus * 0.01 * FORMULA_NUM);
-        this.minus = FORMULA_NUM - this.plus;
-    }
+    private ProblemFactory() {}
 
     /**
      * 默认构造
      * <p>
-     * 比例 50% 50%
+     * 比例由应用上文确定
      *
      * @return 构造工厂
      */
     public static ProblemFactory of() {
-        return of(50, 50);
-    }
-
-    /**
-     * 变比例构造
-     * <p>
-     * 比例 plus% minus%
-     *
-     * @param plus  加法出现比例
-     * @param minus 减法出现比例
-     * @return 构造工厂
-     */
-    public static ProblemFactory of(int plus, int minus) {
-        if (plus + minus != 100) {
-            logger.error("The calculation formula accounts for not 100% !");
-            throw new IllegalArgumentException("The calculation formula accounts for not 100%.");
-        }
-        return new ProblemFactory(plus);
+        return new ProblemFactory();
     }
 
     /**
@@ -101,14 +72,14 @@ public class ProblemFactory {
         List<Formula> formulas = new ArrayList<>(FORMULA_NUM + 1);
         // 加法
         Operator op = Operator.plus;
-        for (int i = 0; i < plus; i++) {
+        for (int i = 0; i < Context.getPlusNum(); i++) {
             // 用刚刚创建的算式，生成一个加法算式
             // 加入问题集合
             formulas.add(checkAndBuildFormula(op));
         }
         // 减法
         op = Operator.minus;
-        for (int i = 0; i < minus; i++) {
+        for (int i = 0; i < Context.getMinusNum(); i++) {
             // 用刚刚创建的算式，生成一个减法算式
             // 加入问题集合
             formulas.add(checkAndBuildFormula(op));

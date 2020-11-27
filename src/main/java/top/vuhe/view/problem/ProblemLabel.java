@@ -8,13 +8,13 @@ import javax.swing.*;
  * @author vuhe
  */
 public class ProblemLabel extends JLabel {
-    private final Formula formula;
+    private Formula formula;
     private boolean showAns = false;
 
     public ProblemLabel(Formula formula) {
-        this.formula = formula;
         setSize(100, 10);
-        setText(formula.toString());
+        setText("加载中……");
+        build(formula);
     }
 
     /**
@@ -25,5 +25,25 @@ public class ProblemLabel extends JLabel {
             setText(formula + "" + formula.getAns());
             showAns = true;
         }
+    }
+
+    /**
+     * 重设算式
+     *
+     * @param formula 新算式
+     */
+    public void rebuild(Formula formula) {
+        build(formula);
+    }
+
+    /**
+     * 构建标签
+     *
+     * @param formula 算式
+     */
+    private void build(Formula formula) {
+        this.formula = formula;
+        setText(formula.toString());
+        showAns = false;
     }
 }
