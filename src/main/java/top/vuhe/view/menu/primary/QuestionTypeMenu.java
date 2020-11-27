@@ -37,7 +37,7 @@ public class QuestionTypeMenu extends JMenu {
         questionType.add(minus);
         add(minus);
 
-        logger.info("build question-type-menu");
+        logger.info("创建「习题模式」菜单");
     }
 
     public static JMenu instance() {
@@ -54,7 +54,7 @@ class AllPlusTypeRadioButton {
 
     public static JRadioButtonMenuItem instance() {
         INSTANCE.setText("全加法题目");
-        logger.info("build all-plus-type-radio-button");
+        logger.info("创建「全加法题目」按钮");
         return INSTANCE;
     }
 }
@@ -68,7 +68,7 @@ class AllMinusTypeRadioButton {
 
     public static JRadioButtonMenuItem instance() {
         INSTANCE.setText("全减法题目");
-        logger.info("build all-minus-type-radio-button");
+        logger.info("创建「全减法题目」按钮");
         return INSTANCE;
     }
 }
@@ -85,12 +85,12 @@ class MixTypeRadioButton extends JRadioButtonMenuItem {
 
             // 通知订阅者更新视图
             AbstractSubject subject = RebuildQuestionSubject.instance();
-            subject.notifyObservers("update question");
+            subject.notifyObservers("更新问题");
         });
     }
 
     public static JRadioButtonMenuItem instance() {
-        logger.info("build half-half RadioButton");
+        logger.info("创建「混合题目」按钮");
         return new MixTypeRadioButton(50, 50);
     }
 

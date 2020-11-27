@@ -1,17 +1,17 @@
-package top.vuhe.view.problem;
+package top.vuhe.view.center;
 
-import top.vuhe.model.Formula;
+import top.vuhe.model.entity.Formula;
 
 import javax.swing.*;
 
 /**
  * @author vuhe
  */
-public class ProblemLabel extends JLabel {
+public class QuestionLabel extends JLabel {
     private Formula formula;
     private boolean showAns = false;
 
-    public ProblemLabel(Formula formula) {
+    public QuestionLabel(Formula formula) {
         setSize(100, 10);
         setText("加载中……");
         build(formula);

@@ -1,4 +1,4 @@
-package top.vuhe.model;
+package top.vuhe.model.entity;
 
 import java.util.Objects;
 

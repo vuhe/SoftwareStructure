@@ -1,11 +1,11 @@
-package top.vuhe.controller.formula;
+package top.vuhe.controller.factory;
 
 import static top.vuhe.model.Context.ANS_MAX;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.model.Formula;
-import top.vuhe.model.Operator;
+import top.vuhe.model.entity.Formula;
+import top.vuhe.model.entity.Operator;
 
 import java.util.*;
 

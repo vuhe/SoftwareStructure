@@ -1,4 +1,4 @@
-package top.vuhe.model;
+package top.vuhe.model.entity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,32 +13,32 @@ import java.util.List;
  *
  * @author vuhe
  */
-public class Problem implements Iterable<Formula> {
+public class Question implements Iterable<Formula> {
     private final List<Formula> formulas;
     private final int size;
 
-    private Problem(List<Formula> formulas, int size) {
+    private Question(List<Formula> formulas, int size) {
         this.formulas = formulas;
         this.size = size;
     }
 
-    public static Problem from(){
-        return new Problem(new ArrayList<>(), 0);
+    public static Question from(){
+        return new Question(new ArrayList<>(), 0);
     }
 
-    public static Problem from(Formula formula) {
+    public static Question from(Formula formula) {
         if (formula != null) {
             List<Formula> list = new ArrayList<>();
             list.add(formula);
-            return new Problem(list, 1);
+            return new Question(list, 1);
         } else {
             return from();
         }
     }
 
-    public static Problem from(List<Formula> formulas) {
+    public static Question from(List<Formula> formulas) {
         if (formulas != null) {
-            return new Problem(formulas, formulas.size());
+            return new Question(formulas, formulas.size());
         } else {
             return from();
         }

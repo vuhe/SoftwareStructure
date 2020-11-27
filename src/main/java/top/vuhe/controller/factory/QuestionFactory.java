@@ -1,12 +1,11 @@
-package top.vuhe.controller.problem;
+package top.vuhe.controller.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.model.Context;
-import top.vuhe.model.Formula;
-import top.vuhe.model.Operator;
-import top.vuhe.model.Problem;
-import top.vuhe.controller.formula.FormulaFactory;
+import top.vuhe.model.entity.Formula;
+import top.vuhe.model.entity.Operator;
+import top.vuhe.model.entity.Question;
 
 import java.util.*;
 
@@ -20,8 +19,8 @@ import static top.vuhe.model.Context.*;
  *
  * @author vuhe
  */
-public class ProblemFactory {
-    private static final Logger logger = LoggerFactory.getLogger(ProblemFactory.class);
+public class QuestionFactory {
+    private static final Logger logger = LoggerFactory.getLogger(QuestionFactory.class);
     /**
      * 算式统计器
      */
@@ -29,14 +28,14 @@ public class ProblemFactory {
     /**
      * 生成的问题
      */
-    private Problem problem;
+    private Question question;
 
     /**
      * 构造方法
      * <p>
      * 默认不开放，以便将来扩展使用
      */
-    private ProblemFactory() {}
+    private QuestionFactory() {}
 
     /**
      * 默认构造
@@ -45,8 +44,8 @@ public class ProblemFactory {
      *
      * @return 构造工厂
      */
-    public static ProblemFactory of() {
-        return new ProblemFactory();
+    public static QuestionFactory of() {
+        return new QuestionFactory();
     }
 
     /**
@@ -54,12 +53,12 @@ public class ProblemFactory {
      *
      * @return 习题
      */
-    public Problem create() {
-        if (problem == null) {
+    public Question create() {
+        if (question == null) {
             buildProblem();
         }
-        logger.info("return a Problem.");
-        return problem;
+        logger.info("返回生成的一套习题");
+        return question;
     }
 
     /**
@@ -87,9 +86,9 @@ public class ProblemFactory {
 
         // 打乱
         Collections.shuffle(formulas);
-        logger.info("build new Problem.");
+        logger.info("创建一套习题");
 
-        this.problem = Problem.from(formulas);
+        this.question = Question.from(formulas);
     }
 
     /**

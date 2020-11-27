@@ -7,9 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.formula.FormulaFactory;
-import top.vuhe.model.Formula;
-import top.vuhe.model.Operator;
+import top.vuhe.controller.factory.FormulaFactory;
+import top.vuhe.model.entity.Formula;
+import top.vuhe.model.entity.Operator;
 
 /**
  * 算式类单元测试

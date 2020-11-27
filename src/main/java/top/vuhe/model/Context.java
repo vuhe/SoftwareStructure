@@ -12,26 +12,32 @@ public final class Context {
     private static final Logger logger = LoggerFactory.getLogger(Context.class);
     /**
      * 算式数量
-     *
+     * <br>
      * <b>不变量</b>
      */
     public static final int FORMULA_NUM = 50;
     /**
      * 算式结果最大值
-     *
+     * <br>
      * <b>不变量</b>
      */
     public static final int ANS_MAX = 100;
+    /**
+     * 概率和
+     * <br>
+     * <b>不变量</b>
+     */
+    private static final int PROBABILITY_SUM = 100;
 
     /**
      * 加法算式数量
-     *
+     * <br>
      * <b>变量</b>
      */
     private static int PLUS_NUM = 25;
     /**
      * 减法算式数量
-     *
+     * <br>
      * <b>变量</b>
      */
     private static int MINUS_NUM = 25;
@@ -49,16 +55,16 @@ public final class Context {
     }
 
     public static void setProportionNumber(int plus, int minus) {
-        if (plus + minus != 100) {
-            logger.error("The calculation formula accounts for not 100% !");
+        if (plus + minus != PROBABILITY_SUM) {
+            logger.error("概率和不为 100% !");
             throw new IllegalArgumentException("The calculation formula accounts for not 100%.");
         }
         if (plus < 0) {
-            logger.error("The ratio of addition formula cannot be less than zero !");
+            logger.error("加法算式比例小于 0 !");
             throw new IllegalArgumentException("The ratio of addition formula cannot be less than zero.");
         }
         if (minus < 0) {
-            logger.error("The ratio of subtraction formula cannot be less than zero !");
+            logger.error("减法算式比例小于 0 !");
             throw new IllegalArgumentException("The ratio of subtraction formula cannot be less than zero.");
         }
         // 百分比转换为数量

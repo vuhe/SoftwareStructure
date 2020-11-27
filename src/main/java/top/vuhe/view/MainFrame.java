@@ -2,9 +2,9 @@ package top.vuhe.view;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.view.function.FunctionPanel;
+import top.vuhe.view.bottom.FunctionPanel;
 import top.vuhe.view.menu.MainMenuBar;
-import top.vuhe.view.problem.ProblemPanel;
+import top.vuhe.view.center.QuestionPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
      */
     public static void create() {
         new MainFrame();
-        logger.info("build MainFrame.");
+        logger.info("创建主窗口");
     }
 
     private MainFrame() {
@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 
         // 默认为BorderLayout布局
         // 设置题目在中心
-        add(ProblemPanel.instance(), BorderLayout.CENTER);
+        add(QuestionPanel.instance(), BorderLayout.CENTER);
         // 设置按钮操作在下方
         add(FunctionPanel.instance(), BorderLayout.SOUTH);
 

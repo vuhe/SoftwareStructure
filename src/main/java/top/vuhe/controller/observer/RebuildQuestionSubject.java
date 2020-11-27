@@ -2,8 +2,8 @@ package top.vuhe.controller.observer;
 
 import top.vuhe.controller.observer.intf.AbstractSubject;
 import top.vuhe.controller.observer.intf.Observer;
-import top.vuhe.view.function.FunctionPanel;
-import top.vuhe.view.problem.ProblemPanel;
+import top.vuhe.view.bottom.FunctionPanel;
+import top.vuhe.view.center.QuestionPanel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class RebuildQuestionSubject extends AbstractSubject {
     private static final AbstractSubject INSTANCE = new RebuildQuestionSubject();
 
     private RebuildQuestionSubject() {
-        addObserver(ProblemPanel.instance());
+        addObserver(QuestionPanel.instance());
         addObserver(FunctionPanel.instance());
     }
 
