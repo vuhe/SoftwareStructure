@@ -3,6 +3,7 @@ package top.vuhe.view;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.view.function.FunctionPanel;
+import top.vuhe.view.menu.MainMenuBar;
 import top.vuhe.view.problem.ProblemPanel;
 
 import javax.swing.*;
@@ -28,12 +29,17 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(550, 400);
         setResizable(false);
-        setVisible(true);
+
+        // 设置菜单
+        setJMenuBar(MainMenuBar.instance());
 
         // 默认为BorderLayout布局
         // 设置题目在中心
         add(ProblemPanel.getProblemPanel(), BorderLayout.CENTER);
         // 设置按钮操作在下方
         add(new FunctionPanel(), BorderLayout.SOUTH);
+
+        // 准备好后再显示，减少空白等待时间
+        setVisible(true);
     }
 }

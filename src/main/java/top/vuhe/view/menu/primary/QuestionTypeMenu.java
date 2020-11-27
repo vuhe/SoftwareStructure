@@ -1,0 +1,92 @@
+package top.vuhe.view.menu.primary;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.swing.*;
+
+/**
+ * @author vuhe
+ */
+public class QuestionTypeMenu extends JMenu {
+    private static final Logger logger = LoggerFactory.getLogger(QuestionTypeMenu.class);
+    private static final JMenu INSTANCE = new QuestionTypeMenu();
+
+    private QuestionTypeMenu() {
+        setText("习题模式");
+
+        // 按钮组
+        ButtonGroup questionType = new ButtonGroup();
+
+        // 默认选中 50% 50% 混合模式
+        JRadioButtonMenuItem mix = MixTypeRadioButton.instance();
+        mix.setSelected(true);
+        questionType.add(mix);
+        add(mix);
+
+        // 全加法模式
+        JRadioButtonMenuItem plus = AllPlusTypeRadioButton.instance();
+        questionType.add(plus);
+        add(plus);
+
+        // 全减法模式
+        JRadioButtonMenuItem minus = AllMinusTypeRadioButton.instance();
+        questionType.add(minus);
+        add(minus);
+
+        logger.info("build question-type-menu");
+    }
+
+    public static JMenu instance() {
+        return INSTANCE;
+    }
+}
+
+class AllPlusTypeRadioButton {
+    private static final Logger logger = LoggerFactory.getLogger(AllPlusTypeRadioButton.class);
+    private static final JRadioButtonMenuItem INSTANCE = MixTypeRadioButton.instance(100, 0);
+
+    private AllPlusTypeRadioButton() {
+    }
+
+    public static JRadioButtonMenuItem instance() {
+        INSTANCE.setText("全加法题目");
+        logger.info("build all-plus-type-radio-button");
+        return INSTANCE;
+    }
+}
+
+class AllMinusTypeRadioButton {
+    private static final Logger logger = LoggerFactory.getLogger(AllMinusTypeRadioButton.class);
+    private static final JRadioButtonMenuItem INSTANCE = MixTypeRadioButton.instance(0, 100);
+
+    private AllMinusTypeRadioButton() {
+    }
+
+    public static JRadioButtonMenuItem instance() {
+        INSTANCE.setText("全减法题目");
+        logger.info("build all-minus-type-radio-button");
+        return INSTANCE;
+    }
+}
+
+class MixTypeRadioButton extends JRadioButtonMenuItem {
+    private static final Logger logger = LoggerFactory.getLogger(MixTypeRadioButton.class);
+    private static final JRadioButtonMenuItem HALF_HALF = new MixTypeRadioButton(50, 50);
+
+    private MixTypeRadioButton(int plus, int minus) {
+        setText("混合题目");
+        addActionListener(e -> {
+            // TO-DO
+        });
+    }
+
+    public static JRadioButtonMenuItem instance() {
+        logger.info("build half-half RadioButton");
+        return new MixTypeRadioButton(50, 50);
+    }
+
+    public static JRadioButtonMenuItem instance(int plus, int minus) {
+        return new MixTypeRadioButton(plus, minus);
+    }
+}
