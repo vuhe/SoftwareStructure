@@ -2,7 +2,6 @@ package top.vuhe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.observer.CreateQuestionSubject;
 import top.vuhe.view.MainFrame;
 
 import javax.swing.*;
@@ -21,8 +20,6 @@ public class MainApplication {
     public static void main(String[] args) {
         logger.info("start system, welcome use this system!");
         // UI 线程
-        SwingUtilities.invokeLater(MainFrame::create);
-        // 初始化问题
-        CreateQuestionSubject.instance().notifyObservers("init");
+        SwingUtilities.invokeLater(MainFrame::instance);
     }
 }

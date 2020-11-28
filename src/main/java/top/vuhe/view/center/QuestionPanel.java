@@ -2,8 +2,6 @@ package top.vuhe.view.center;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.observer.RefreshUiSubject;
-import top.vuhe.controller.observer.intf.Observer;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Question;
@@ -16,10 +14,10 @@ import java.util.List;
 /**
  * @author vuhe
  */
-public class QuestionPanel extends JPanel implements Observer {
+public class QuestionPanel extends JPanel {
     private static final Logger logger = LoggerFactory.getLogger(QuestionPanel.class);
     private static final QuestionPanel INSTANCE = new QuestionPanel();
-    private List<QuestionLabel> labels = new LinkedList<>();
+    private final List<FormulaComponent> labels = new LinkedList<>();
 
     /**
      * 采用单例模式，禁止外部调用
@@ -28,9 +26,9 @@ public class QuestionPanel extends JPanel implements Observer {
     private QuestionPanel() {
         setLayout(new GridLayout(10, 5, 5, 5));
         for (int i = 0; i < Context.FORMULA_NUM; i++) {
-            QuestionLabel questionLabel = new QuestionLabel();
-            add(questionLabel);
-            labels.add(questionLabel);
+            FormulaComponent formulaComponent = FormulaComponent.instance();
+            add(formulaComponent);
+            labels.add(formulaComponent);
         }
     }
 
@@ -56,61 +54,55 @@ public class QuestionPanel extends JPanel implements Observer {
 
     /**
      * 用于接受来自UI刷新的信息通知
-     *
-     * @param message     信息
-     * @param subjectName 订阅名
      */
-    @Override
-    public void update(String message, String subjectName) {
-        if (RefreshUiSubject.NAME.equals(subjectName)) {
-            Question question = Context.getQuestion();
-            // 算式 和 算式标签迭代器
-            var itProblem = question.iterator();
-            var itLabel = labels.iterator();
-            // 循环设置
-            while (itLabel.hasNext() && itProblem.hasNext()) {
-                itLabel.next().rebuild(itProblem.next());
-            }
+    public void update() {
+        Question question = Context.getQuestion();
+        // 算式 和 算式标签迭代器
+        var itProblem = question.iterator();
+        var itLabel = labels.iterator();
+        // 循环设置
+        while (itLabel.hasNext() && itProblem.hasNext()) {
+            itLabel.next().setFormula(itProblem.next());
         }
     }
 }
 
-class QuestionLabel extends JLabel {
+class FormulaComponent extends JPanel {
     private Formula formula;
-    private boolean showAns = false;
+    private final JLabel formulaText = new JLabel();
+    private final JLabel ansText = new JLabel();
 
-    QuestionLabel() {
+    private FormulaComponent() {
         setSize(100, 10);
-        setText("加载中……");
+        add(formulaText);
+        add(ansText);
+        // 设置题目加载
+        formulaText.setText("加载中……");
+        // 默认不显示答案
+        ansText.setVisible(false);
+    }
+
+    static FormulaComponent instance() {
+        return new FormulaComponent();
     }
 
     /**
      * 对一个标签中信息进行替换，显示答案
      */
     public void showAns() {
-        if (!showAns) {
-            setText(formula + "" + formula.getAns());
-            showAns = true;
-        }
+        ansText.setVisible(true);
     }
 
-    /**
-     * 重设算式
-     *
-     * @param formula 新算式
-     */
-    public void rebuild(Formula formula) {
-        build(formula);
-    }
+    public void setFormula(Formula formula) {
+        // 设置问题文字
+        formulaText.setText(formula.toString());
 
-    /**
-     * 构建标签
-     *
-     * @param formula 算式
-     */
-    private void build(Formula formula) {
+        // 设置答案文字
+        ansText.setText(String.valueOf(formula.getAns()));
+        // 默认不显示答案
+        ansText.setVisible(false);
+
+        // 记录算式
         this.formula = formula;
-        setText(formula.toString());
-        showAns = false;
     }
 }

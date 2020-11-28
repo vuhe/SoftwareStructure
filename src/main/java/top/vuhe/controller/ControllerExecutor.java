@@ -3,9 +3,6 @@ package top.vuhe.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.controller.factory.QuestionFactory;
-import top.vuhe.controller.observer.CreateQuestionSubject;
-import top.vuhe.controller.observer.RefreshUiSubject;
-import top.vuhe.controller.observer.intf.Observer;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Question;
 
@@ -19,7 +16,7 @@ import java.util.concurrent.*;
  *
  * @author vuhe
  */
-public class ControllerExecutor implements Observer {
+public class ControllerExecutor {
     private static final Logger logger = LoggerFactory.getLogger(ControllerExecutor.class);
     private static final ControllerExecutor INSTANCE = new ControllerExecutor();
     /**
@@ -39,23 +36,25 @@ public class ControllerExecutor implements Observer {
         return INSTANCE;
     }
 
-    @Override
-    public void update(String message, String subjectName) {
-        // 收到创建新题目请求
-        if (CreateQuestionSubject.NAME.equals(subjectName)) {
-            createQuestion();
-        }
+    public static Future<?> invokeLater(Runnable task) {
+        return INSTANCE.pool.submit(task);
+    }
+
+    public static <T> Future<T> invokeLater(Callable<T> task) {
+        return INSTANCE.pool.submit(task);
     }
 
     /**
      * 创建新习题任务
      */
-    private void createQuestion() {
-        pool.submit(() -> {
+    public static Future<?> buildQuestion() {
+        return invokeLater(() -> {
             logger.info("创建线程更新习题");
+
             Question question = QuestionFactory.of().create();
             Context.setQuestion(question);
-            RefreshUiSubject.instance().notifyObservers("创建完成");
+
+            logger.info("创建完成");
         });
     }
 }
