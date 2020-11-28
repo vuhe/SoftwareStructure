@@ -1,4 +1,4 @@
-package top.vuhe.view.center;
+package top.vuhe.view.window.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +14,16 @@ import java.util.List;
 /**
  * @author vuhe
  */
-public class QuestionPanel extends JPanel {
-    private static final Logger logger = LoggerFactory.getLogger(QuestionPanel.class);
-    private static final QuestionPanel INSTANCE = new QuestionPanel();
+public class FormulasPanel extends JPanel {
+    private static final Logger logger = LoggerFactory.getLogger(FormulasPanel.class);
+    private static final FormulasPanel INSTANCE = new FormulasPanel();
     private final List<FormulaComponent> labels = new LinkedList<>();
 
     /**
      * 采用单例模式，禁止外部调用
-     * 注意：依据情况未来可能会换用enum实现
+     * 依据情况未来可能会换用实现
      */
-    private QuestionPanel() {
+    private FormulasPanel() {
         setLayout(new GridLayout(10, 5, 5, 5));
         for (int i = 0; i < Context.FORMULA_NUM; i++) {
             FormulaComponent formulaComponent = FormulaComponent.instance();
@@ -37,7 +37,7 @@ public class QuestionPanel extends JPanel {
      *
      * @return 此Panel的单例
      */
-    public static QuestionPanel instance() {
+    public static FormulasPanel instance() {
         logger.info("获取问题面板单例");
         return INSTANCE;
     }

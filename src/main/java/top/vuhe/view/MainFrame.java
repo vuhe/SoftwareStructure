@@ -3,10 +3,11 @@ package top.vuhe.view;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.controller.ControllerExecutor;
-import top.vuhe.view.bottom.FunctionPanel;
-import top.vuhe.view.center.LoadingPanel;
+import top.vuhe.view.window.QuestionPanel;
+import top.vuhe.view.window.component.FunctionPanel;
+import top.vuhe.view.window.LoadingPanel;
 import top.vuhe.view.menu.MainMenuBar;
-import top.vuhe.view.center.QuestionPanel;
+import top.vuhe.view.window.component.FormulasPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ import java.util.concurrent.Future;
 public class MainFrame extends JFrame {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
     private static final MainFrame INSTANCE = new MainFrame();
+    private final CardLayout CARD_LAYOUT = new CardLayout();
 
     /**
      * 用静态函数返回（单例模式）
@@ -34,12 +36,17 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(550, 400);
         setResizable(false);
-        setLayout(new BorderLayout(5,5));
+        setLayout(CARD_LAYOUT);
 
         // 设置菜单
         setJMenuBar(MainMenuBar.instance());
+        // 设置两个切换页面
+        add(LoadingPanel.instance(), "loading");
+        add(QuestionPanel.instance(), "question");
 
-        // 默认为BorderLayout布局
+        // 默认显示加载中
+        CARD_LAYOUT.show(getContentPane(), "loading");
+
         // 准备好后再显示，减少空白等待时间
         setVisible(true);
 
@@ -64,19 +71,18 @@ public class MainFrame extends JFrame {
      * 开始加载
      */
     private void startLoading() {
-        getContentPane().removeAll();
-        getContentPane().add(LoadingPanel.instance(), BorderLayout.CENTER);
+        // 显示加载
+        CARD_LAYOUT.show(getContentPane(), "loading");
     }
 
     /**
      * 完成加载
      */
     private void endLoading() {
-        QuestionPanel.instance().update();
+        FormulasPanel.instance().update();
         FunctionPanel.instance().update();
 
-        getContentPane().removeAll();
-        getContentPane().add(QuestionPanel.instance(), BorderLayout.CENTER);
-        getContentPane().add(FunctionPanel.instance(), BorderLayout.SOUTH);
+        // 显示题目
+        CARD_LAYOUT.show(getContentPane(), "question");
     }
 }

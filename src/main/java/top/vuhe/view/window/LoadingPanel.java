@@ -1,4 +1,4 @@
-package top.vuhe.view.center;
+package top.vuhe.view.window;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

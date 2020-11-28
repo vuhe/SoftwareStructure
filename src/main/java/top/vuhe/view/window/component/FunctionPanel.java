@@ -1,8 +1,7 @@
-package top.vuhe.view.bottom;
+package top.vuhe.view.window.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.view.center.QuestionPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +22,7 @@ public class FunctionPanel extends JPanel {
         // 目前仅有一个显示答案的按钮
         // 在显示答案之后会将按钮禁用
         showAns.addActionListener(e -> {
-            QuestionPanel panel = QuestionPanel.instance();
+            FormulasPanel panel = FormulasPanel.instance();
             panel.showAns();
             showAns.setEnabled(false);
             logger.info("显示答案（button）");
