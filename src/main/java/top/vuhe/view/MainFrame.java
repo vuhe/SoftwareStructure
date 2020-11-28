@@ -4,10 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.controller.ControllerExecutor;
 import top.vuhe.view.window.QuestionPanel;
-import top.vuhe.view.window.component.FunctionPanel;
 import top.vuhe.view.window.LoadingPanel;
 import top.vuhe.view.menu.MainMenuBar;
-import top.vuhe.view.window.component.FormulasPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,7 +51,11 @@ public class MainFrame extends JFrame {
         refresh();
     }
 
+    /**
+     * 刷新主页面
+     */
     public void refresh() {
+        logger.info("刷新主页面");
         startLoading();
 
         // 等待题目生成完毕
@@ -65,6 +67,7 @@ public class MainFrame extends JFrame {
         }
 
         endLoading();
+        logger.info("主页面刷新完成");
     }
 
     /**
@@ -79,8 +82,8 @@ public class MainFrame extends JFrame {
      * 完成加载
      */
     private void endLoading() {
-        FormulasPanel.instance().update();
-        FunctionPanel.instance().update();
+        // 刷新面板信息
+        QuestionPanel.instance().refresh();
 
         // 显示题目
         CARD_LAYOUT.show(getContentPane(), "question");

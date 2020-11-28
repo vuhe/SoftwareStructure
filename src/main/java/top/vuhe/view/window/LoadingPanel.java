@@ -21,7 +21,7 @@ public class LoadingPanel extends JPanel {
     }
 
     public static JPanel instance() {
-        logger.info("加载中……");
+        logger.info("获取加载页面");
         return INSTANCE;
     }
 }

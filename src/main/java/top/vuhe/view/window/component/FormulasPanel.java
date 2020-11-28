@@ -38,7 +38,7 @@ public class FormulasPanel extends JPanel {
      * @return 此Panel的单例
      */
     public static FormulasPanel instance() {
-        logger.info("获取问题面板单例");
+        logger.info("获取算式面板");
         return INSTANCE;
     }
 
@@ -46,7 +46,7 @@ public class FormulasPanel extends JPanel {
      * 循环调用标签中的显示方法
      */
     public void showAns() {
-        logger.info("显示问题面板所有答案");
+        logger.info("显示所有算式答案");
         for (var i : labels) {
             i.showAns();
         }
@@ -93,6 +93,11 @@ class FormulaComponent extends JPanel {
         ansText.setVisible(true);
     }
 
+    /**
+     * 对单个算式标签设置
+     *
+     * @param formula 算式
+     */
     public void setFormula(Formula formula) {
         // 设置问题文字
         formulaText.setText(formula.toString());

@@ -31,7 +31,7 @@ public class FunctionPanel extends JPanel {
         // 添加
         add(showAns);
 
-        logger.info("创建功能面板");
+        logger.info("获取功能按钮面板");
     }
 
     public static FunctionPanel instance() {
