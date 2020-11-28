@@ -2,13 +2,14 @@ package top.vuhe.view.menu.primary;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.observer.RebuildQuestionSubject;
-import top.vuhe.controller.observer.intf.AbstractSubject;
 import top.vuhe.model.Context;
+import top.vuhe.view.MainFrame;
 
 import javax.swing.*;
 
 /**
+ * 习题模式菜单
+ *
  * @author vuhe
  */
 public class QuestionTypeMenu extends JMenu {
@@ -22,18 +23,18 @@ public class QuestionTypeMenu extends JMenu {
         ButtonGroup questionType = new ButtonGroup();
 
         // 默认选中 50% 50% 混合模式
-        JRadioButtonMenuItem mix = MixTypeRadioButton.instance();
+        JRadioButtonMenuItem mix = TypeRadioButton.getMixType(50, 50);
         mix.setSelected(true);
         questionType.add(mix);
         add(mix);
 
         // 全加法模式
-        JRadioButtonMenuItem plus = AllPlusTypeRadioButton.instance();
+        JRadioButtonMenuItem plus = TypeRadioButton.getAllPlusType();
         questionType.add(plus);
         add(plus);
 
         // 全减法模式
-        JRadioButtonMenuItem minus = AllMinusTypeRadioButton.instance();
+        JRadioButtonMenuItem minus = TypeRadioButton.getAllMinusType();
         questionType.add(minus);
         add(minus);
 
@@ -45,56 +46,35 @@ public class QuestionTypeMenu extends JMenu {
     }
 }
 
-class AllPlusTypeRadioButton {
-    private static final Logger logger = LoggerFactory.getLogger(AllPlusTypeRadioButton.class);
-    private static final JRadioButtonMenuItem INSTANCE = MixTypeRadioButton.instance(100, 0);
+class TypeRadioButton extends JRadioButtonMenuItem {
+    private static final Logger logger = LoggerFactory.getLogger(TypeRadioButton.class);
+    private static final JRadioButtonMenuItem PLUS = new TypeRadioButton("全加法题目", 100, 0);
+    private static final JRadioButtonMenuItem MINUS = new TypeRadioButton("全减法题目", 0, 100);
 
-    private AllPlusTypeRadioButton() {
-    }
-
-    public static JRadioButtonMenuItem instance() {
-        INSTANCE.setText("全加法题目");
-        logger.info("创建「全加法题目」按钮");
-        return INSTANCE;
-    }
-}
-
-class AllMinusTypeRadioButton {
-    private static final Logger logger = LoggerFactory.getLogger(AllMinusTypeRadioButton.class);
-    private static final JRadioButtonMenuItem INSTANCE = MixTypeRadioButton.instance(0, 100);
-
-    private AllMinusTypeRadioButton() {
-    }
-
-    public static JRadioButtonMenuItem instance() {
-        INSTANCE.setText("全减法题目");
-        logger.info("创建「全减法题目」按钮");
-        return INSTANCE;
-    }
-}
-
-class MixTypeRadioButton extends JRadioButtonMenuItem {
-    private static final Logger logger = LoggerFactory.getLogger(MixTypeRadioButton.class);
-    private static final JRadioButtonMenuItem HALF_HALF = new MixTypeRadioButton(50, 50);
-
-    private MixTypeRadioButton(int plus, int minus) {
-        setText("混合题目");
+    private TypeRadioButton(String name, int plus, int minus) {
+        setText(name);
         addActionListener(e -> {
             // 更改全局比例
             Context.setProportionNumber(plus, minus);
 
-            // 通知订阅者更新视图
-            AbstractSubject subject = RebuildQuestionSubject.instance();
-            subject.notifyObservers("更新问题");
+            // 通知主视图更新信息
+            MainFrame.instance().refresh();
         });
     }
 
-    public static JRadioButtonMenuItem instance() {
+    public static JRadioButtonMenuItem getMixType(int plus, int minus) {
         logger.info("创建「混合题目」按钮");
-        return new MixTypeRadioButton(50, 50);
+        return new TypeRadioButton("混合题目", plus, minus);
     }
 
-    public static JRadioButtonMenuItem instance(int plus, int minus) {
-        return new MixTypeRadioButton(plus, minus);
+    public static JRadioButtonMenuItem getAllPlusType() {
+        logger.info("创建「全加法题目」按钮");
+
+        return PLUS;
+    }
+
+    public static JRadioButtonMenuItem getAllMinusType() {
+        logger.info("创建「全减法题目」按钮");
+        return MINUS;
     }
 }

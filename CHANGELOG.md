@@ -1,4 +1,4 @@
-#  (2020-11-27)
+#  (2020-11-28)
 
 
 ### Bug Fixes
@@ -7,6 +7,7 @@
 * **formula:** 修正随机数生成问题 ([13da595](https://github.com/vuhe/SoftwareStructure/commit/13da595507b686a0b1a3ecbc0225e33c26b54afd))
 * **problem:** 修复测试问题 ([25c1e29](https://github.com/vuhe/SoftwareStructure/commit/25c1e29994aef10a58861ba7de7956f98b1accfb))
 * **test:** 修正测试逻辑 ([d95466f](https://github.com/vuhe/SoftwareStructure/commit/d95466f0a1a32f67bcb8fec14115d8ac491c0a22))
+* **UI:** 修复界面刷新问题 ([7d038a2](https://github.com/vuhe/SoftwareStructure/commit/7d038a296a99bbb994a606fcb5061a23f4585848))
 * 去除部分追踪 ([6c323ef](https://github.com/vuhe/SoftwareStructure/commit/6c323efaf5da55b22fa4b5bfec300c45c87d0328))
 * 调整问题界限生产 ([83c99bc](https://github.com/vuhe/SoftwareStructure/commit/83c99bcd7ed03dc0a907e94ca91e6d7e463fec5c))
 
@@ -14,6 +15,8 @@
 ### Features
 
 * **changelog:** 添加 changelog ([7c10774](https://github.com/vuhe/SoftwareStructure/commit/7c10774daafb543743a461b9ea1bb199db1f880d))
+* **controller:** 添加Controller线程 ([8f0139f](https://github.com/vuhe/SoftwareStructure/commit/8f0139f17b4a2ad8af1cff52e8d091d2bc63e55c))
+* **controller:** 重构至用阻塞控制流程 ([9e48881](https://github.com/vuhe/SoftwareStructure/commit/9e48881d012b6bbe826fe6007f5d30edd63b6fe9))
 * **formula:** 完成算式不重复 ([1bed8fb](https://github.com/vuhe/SoftwareStructure/commit/1bed8fbbe945c77679dd6fde080af3f655692140))
 * **formula:** 完成运算符平均化 ([0b9bec2](https://github.com/vuhe/SoftwareStructure/commit/0b9bec23bfc67af5d1e9e51141da684844f72aed))
 * **formula:** 算式换用构建者模式 ([f567b5a](https://github.com/vuhe/SoftwareStructure/commit/f567b5af9ba2e02330aa18c701b88f42ab9a1398))

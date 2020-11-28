@@ -18,7 +18,7 @@ public class MainMenuBar extends JMenuBar {
     }
 
     public static JMenuBar instance() {
-        logger.info("创建菜单栏");
+        logger.info("获取菜单栏");
         return INSTANCE;
     }
 }

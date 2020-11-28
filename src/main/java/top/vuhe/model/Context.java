@@ -2,6 +2,7 @@ package top.vuhe.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import top.vuhe.model.entity.Question;
 
 /**
  * 此应用上下文
@@ -41,20 +42,24 @@ public final class Context {
      * <b>变量</b>
      */
     private static int MINUS_NUM = 25;
+    /**
+     * 当前习题
+     */
+    private static Question question;
 
     private Context() {
         throw new UnsupportedOperationException("This class CAN'T be instantiated.");
     }
 
-    public static int getMinusNum() {
+    public synchronized static int getMinusNum() {
         return MINUS_NUM;
     }
 
-    public static int getPlusNum() {
+    public synchronized static int getPlusNum() {
         return PLUS_NUM;
     }
 
-    public static void setProportionNumber(int plus, int minus) {
+    public synchronized static void setProportionNumber(int plus, int minus) {
         if (plus + minus != PROBABILITY_SUM) {
             logger.error("概率和不为 100% !");
             throw new IllegalArgumentException("The calculation formula accounts for not 100%.");
@@ -70,5 +75,13 @@ public final class Context {
         // 百分比转换为数量
         PLUS_NUM = (int) (plus * 0.01 * FORMULA_NUM);
         MINUS_NUM = FORMULA_NUM - PLUS_NUM;
+    }
+
+    public synchronized static Question getQuestion() {
+        return question;
+    }
+
+    public synchronized static void setQuestion(Question question) {
+        Context.question = question;
     }
 }

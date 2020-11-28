@@ -19,6 +19,7 @@ public class MainApplication {
      */
     public static void main(String[] args) {
         logger.info("start system, welcome use this system!");
-        SwingUtilities.invokeLater(MainFrame::create);
+        // UI 线程
+        SwingUtilities.invokeLater(MainFrame::instance);
     }
 }
