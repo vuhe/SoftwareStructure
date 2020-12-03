@@ -1,4 +1,4 @@
-package top.vuhe.controller;
+package top.vuhe.controller.factory;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.factory.QuestionFactory;
 import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Operator;
 import top.vuhe.model.entity.Question;
@@ -38,7 +37,8 @@ public class QuestionTest {
     public void checkRepeatedFormula() {
         logger.info("开始运算式生成不重复测试");
         for (int i = 0; i < N; i++) {
-            Question question = QuestionFactory.of().create();
+            Factory<Question> questionFactory = Factory.getQuestionFactory();
+            Question question = questionFactory.produce();
             Set<Formula> set = new HashSet<>();
             for (var formula : question) {
                 Assertions.assertTrue(set.add(formula));
@@ -52,7 +52,8 @@ public class QuestionTest {
     public void checkNumberOfOperators() {
         logger.info("开始运算符在指定范围测试");
         for (int i = 0; i < N; i++) {
-            Question question = QuestionFactory.of().create();
+            Factory<Question> questionFactory = Factory.getQuestionFactory();
+            Question question = questionFactory.produce();
             Map<Operator, Integer> map = new EnumMap<>(Operator.class);
             map.put(Operator.minus, 0);
             map.put(Operator.plus, 0);

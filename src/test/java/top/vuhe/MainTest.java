@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.factory.QuestionFactory;
+import top.vuhe.controller.factory.Factory;
 import top.vuhe.model.entity.Question;
 
 /**
@@ -24,7 +24,8 @@ public class MainTest {
     @DisplayName("面向过程测试")
     public void test() {
         logger.info("v0.x 面向过程测试");
-        Question question = QuestionFactory.of().create();
+        Factory<Question> questionFactory = Factory.getQuestionFactory();
+        Question question = questionFactory.produce();
         int i = 0;
         for (var formula : question) {
             if (i != 0 && i % 5 == 0) {

@@ -17,7 +17,7 @@ import java.util.*;
  *
  * @author vuhe
  */
-public class FormulaFactory {
+abstract class FormulaFactory extends Factory<Formula> {
     private static final Logger logger = LoggerFactory.getLogger(FormulaFactory.class);
     /**
      * 随机数生产器
@@ -25,26 +25,35 @@ public class FormulaFactory {
     private static final Random RANDOM_NUM = new Random(47);
 
     /**
-     * 静态获取一个算式
+     * 获取一个算式
      * <p>
      * 此算式已检查过数值符合要求
      *
-     * @param op 运算符
      * @return 算式
      */
-    public static Formula getFormula(Operator op) {
+    @Override
+    public Formula produce() {
         Formula.Builder builder = new Formula.Builder();
 
         do {
             // 两个数数范围：1 ～ 99
             builder.setA(RANDOM_NUM.nextInt(99) + 1)
-                    .setOp(op)
+                    .setOp(getOp())
                     .setB(RANDOM_NUM.nextInt(99) + 1);
             // 不符合答案重新生产算式
         } while (!checkFormula(builder));
 
         return builder.build();
     }
+
+    /**
+     * 获取一个运算符
+     * <p>
+     * 此方法行为由实现的子类控制
+     *
+     * @return 运算符
+     */
+    abstract protected Operator getOp();
 
     /**
      * 符合答案要求返回 true
@@ -54,10 +63,23 @@ public class FormulaFactory {
      * @param builder 算式构建者
      * @return 是否符合要求
      */
-    private static boolean checkFormula(Formula.Builder builder) {
+    private boolean checkFormula(Formula.Builder builder) {
         int ans = builder.getAns();
         // 答案是否超出范围
         return 0 <= ans && ans <= ANS_MAX;
     }
+}
 
+class AddFormulaFactory extends FormulaFactory {
+    @Override
+    protected Operator getOp() {
+        return Operator.plus;
+    }
+}
+
+class SubFormulaFactory extends FormulaFactory {
+    @Override
+    protected Operator getOp() {
+        return Operator.minus;
+    }
 }

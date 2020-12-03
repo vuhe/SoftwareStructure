@@ -2,7 +2,7 @@ package top.vuhe.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.controller.factory.QuestionFactory;
+import top.vuhe.controller.factory.Factory;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Question;
 
@@ -51,7 +51,8 @@ public class ControllerExecutor {
         return invokeLater(() -> {
             logger.info("创建线程更新习题");
 
-            Question question = QuestionFactory.of().create();
+            Factory<Question> questionFactory = Factory.getQuestionFactory();
+            Question question = questionFactory.produce();
             Context.setQuestion(question);
 
             logger.info("创建完成");
