@@ -8,6 +8,7 @@ import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Operator;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * 算式生成器
@@ -33,15 +34,21 @@ abstract class FormulaFactory extends Factory<Formula> {
      */
     @Override
     public Formula produce() {
-        Formula.Builder builder = new Formula.Builder();
+        // 创建并行生产流
+        Stream<Formula.Builder> builderStream = Stream.generate(this::build);
+        Optional<Formula.Builder> builderOp = builderStream.parallel()
+                // 检查答案
+                .filter(this::checkFormula)
+                .limit(1)
+                // 获取一个
+                .findFirst();
 
-        do {
-            // 两个数数范围：1 ～ 99
-            builder.setA(RANDOM_NUM.nextInt(99) + 1)
-                    .setOp(getOp())
-                    .setB(RANDOM_NUM.nextInt(99) + 1);
-            // 不符合答案重新生产算式
-        } while (!checkFormula(builder));
+        Formula.Builder builder;
+        if (builderOp.isPresent()) {
+            builder = builderOp.get();
+        } else {
+            throw new NoSuchElementException("生产错误");
+        }
 
         return builder.build();
     }
@@ -54,6 +61,15 @@ abstract class FormulaFactory extends Factory<Formula> {
      * @return 运算符
      */
     abstract protected Operator getOp();
+
+    private Formula.Builder build() {
+        return new Formula.Builder()
+                // 两个数数范围：1 ～ 99
+                .setA(RANDOM_NUM.nextInt(99) + 1)
+                .setB(RANDOM_NUM.nextInt(99) + 1)
+                // 子类获取运算符
+                .setOp(getOp());
+    }
 
     /**
      * 符合答案要求返回 true

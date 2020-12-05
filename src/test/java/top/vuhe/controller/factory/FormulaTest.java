@@ -21,7 +21,7 @@ class FormulaTest {
     /**
      * 默认检验算式数
      */
-    private static final int N = 10_000;
+    private static final int N = 100_000;
     /**
      * 加法算式工厂
      */
@@ -52,13 +52,18 @@ class FormulaTest {
     @MethodSource("factoryStream")
     void checkCalculatedValue(Factory<Formula> factory) {
         logger.info("开始运算数区间 (0, 100) 测试");
-        for (int i = 0; i < N; i++) {
-            Formula formula = factory.produce();
-            int a = formula.getA();
-            int b = formula.getB();
-            Assertions.assertTrue(0 < a && a < 100);
-            Assertions.assertTrue(0 < b && b < 100);
-        }
+
+        Stream<Formula> stream = Stream.generate(factory::produce);
+        stream.parallel()
+                .limit(N)
+                .unordered()
+                .forEach(formula -> {
+                    int a = formula.getA();
+                    int b = formula.getB();
+                    Assertions.assertTrue(0 < a && a < 100);
+                    Assertions.assertTrue(0 < b && b < 100);
+                });
+
         logger.info("运算数检测完成，符合要求");
     }
 
@@ -67,11 +72,16 @@ class FormulaTest {
     @MethodSource("factoryStream")
     void checkFormulaAns(Factory<Formula> factory) {
         logger.info("开始运算结果区间 [0, 100] 测试");
-        for (int i = 0; i < N; i++) {
-            Formula formula = factory.produce();
-            int ans = formula.getAns();
-            Assertions.assertTrue(0 <= ans && ans <= 100);
-        }
+
+        Stream<Formula> stream = Stream.generate(factory::produce);
+        stream.parallel()
+                .limit(N)
+                .unordered()
+                .forEach(formula -> {
+                    int ans = formula.getAns();
+                    Assertions.assertTrue(0 <= ans && ans <= 100);
+                });
+
         logger.info("运算结果检测完成，符合要求");
     }
 }

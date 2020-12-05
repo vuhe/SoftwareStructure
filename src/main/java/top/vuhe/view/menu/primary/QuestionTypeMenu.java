@@ -62,18 +62,18 @@ class TypeRadioButton extends JRadioButtonMenuItem {
         });
     }
 
-    public static JRadioButtonMenuItem getMixType(int plus, int minus) {
+    static JRadioButtonMenuItem getMixType(int plus, int minus) {
         logger.info("创建「混合题目」按钮");
         return new TypeRadioButton("混合题目", plus, minus);
     }
 
-    public static JRadioButtonMenuItem getAllPlusType() {
+    static JRadioButtonMenuItem getAllPlusType() {
         logger.info("创建「全加法题目」按钮");
 
         return PLUS;
     }
 
-    public static JRadioButtonMenuItem getAllMinusType() {
+    static JRadioButtonMenuItem getAllMinusType() {
         logger.info("创建「全减法题目」按钮");
         return MINUS;
     }
