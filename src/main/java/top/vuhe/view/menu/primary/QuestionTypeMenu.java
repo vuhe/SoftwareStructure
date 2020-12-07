@@ -1,7 +1,6 @@
 package top.vuhe.view.menu.primary;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.model.Context;
 import top.vuhe.view.MainFrame;
 
@@ -12,8 +11,8 @@ import javax.swing.*;
  *
  * @author vuhe
  */
+@Slf4j
 public class QuestionTypeMenu extends JMenu {
-    private static final Logger logger = LoggerFactory.getLogger(QuestionTypeMenu.class);
     private static final JMenu INSTANCE = new QuestionTypeMenu();
 
     private QuestionTypeMenu() {
@@ -38,7 +37,7 @@ public class QuestionTypeMenu extends JMenu {
         questionType.add(minus);
         add(minus);
 
-        logger.info("创建「习题模式」菜单");
+        log.info("创建「习题模式」菜单");
     }
 
     public static JMenu instance() {
@@ -46,8 +45,8 @@ public class QuestionTypeMenu extends JMenu {
     }
 }
 
+@Slf4j
 class TypeRadioButton extends JRadioButtonMenuItem {
-    private static final Logger logger = LoggerFactory.getLogger(TypeRadioButton.class);
     private static final JRadioButtonMenuItem PLUS = new TypeRadioButton("全加法题目", 100, 0);
     private static final JRadioButtonMenuItem MINUS = new TypeRadioButton("全减法题目", 0, 100);
 
@@ -63,18 +62,18 @@ class TypeRadioButton extends JRadioButtonMenuItem {
     }
 
     static JRadioButtonMenuItem getMixType(int plus, int minus) {
-        logger.info("创建「混合题目」按钮");
+        log.info("创建「混合题目」按钮");
         return new TypeRadioButton("混合题目", plus, minus);
     }
 
     static JRadioButtonMenuItem getAllPlusType() {
-        logger.info("创建「全加法题目」按钮");
+        log.info("创建「全加法题目」按钮");
 
         return PLUS;
     }
 
     static JRadioButtonMenuItem getAllMinusType() {
-        logger.info("创建「全减法题目」按钮");
+        log.info("创建「全减法题目」按钮");
         return MINUS;
     }
 }

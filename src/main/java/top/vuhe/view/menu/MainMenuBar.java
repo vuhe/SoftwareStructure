@@ -1,7 +1,6 @@
 package top.vuhe.view.menu;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.view.menu.primary.QuestionTypeMenu;
 
 import javax.swing.*;
@@ -9,8 +8,8 @@ import javax.swing.*;
 /**
  * @author vuhe
  */
+@Slf4j
 public class MainMenuBar extends JMenuBar {
-    private static final Logger logger = LoggerFactory.getLogger(MainMenuBar.class);
     private static final JMenuBar INSTANCE = new MainMenuBar();
 
     private MainMenuBar() {
@@ -18,7 +17,7 @@ public class MainMenuBar extends JMenuBar {
     }
 
     public static JMenuBar instance() {
-        logger.info("获取菜单栏");
+        log.info("获取菜单栏");
         return INSTANCE;
     }
 }

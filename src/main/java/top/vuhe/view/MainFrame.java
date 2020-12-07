@@ -1,7 +1,6 @@
 package top.vuhe.view;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.controller.ControllerExecutor;
 import top.vuhe.view.window.QuestionPanel;
 import top.vuhe.view.window.LoadingPanel;
@@ -15,8 +14,8 @@ import java.util.concurrent.Future;
 /**
  * @author vuhe
  */
+@Slf4j
 public class MainFrame extends JFrame {
-    private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
     private static final MainFrame INSTANCE = new MainFrame();
     private final CardLayout CARD_LAYOUT = new CardLayout();
 
@@ -25,7 +24,7 @@ public class MainFrame extends JFrame {
      * 以便之后可能的扩展
      */
     public static MainFrame instance() {
-        logger.info("获取主窗口");
+        log.info("获取主窗口");
         return INSTANCE;
     }
 
@@ -55,7 +54,7 @@ public class MainFrame extends JFrame {
      * 刷新主页面
      */
     public void refresh() {
-        logger.info("刷新主页面");
+        log.info("刷新主页面");
         startLoading();
 
         // 等待题目生成完毕
@@ -63,11 +62,11 @@ public class MainFrame extends JFrame {
         try {
             result.get();
         } catch (InterruptedException | ExecutionException e) {
-            logger.error("题目生成线程出现问题", e);
+            log.error("题目生成线程出现问题", e);
         }
 
         endLoading();
-        logger.info("主页面刷新完成");
+        log.info("主页面刷新完成");
     }
 
     /**

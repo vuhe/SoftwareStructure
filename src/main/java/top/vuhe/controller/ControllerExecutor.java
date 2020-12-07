@@ -1,7 +1,6 @@
 package top.vuhe.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.controller.factory.Factory;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Question;
@@ -16,8 +15,8 @@ import java.util.concurrent.*;
  *
  * @author vuhe
  */
+@Slf4j
 public class ControllerExecutor {
-    private static final Logger logger = LoggerFactory.getLogger(ControllerExecutor.class);
     private static final ControllerExecutor INSTANCE = new ControllerExecutor();
     /**
      * 线程池
@@ -49,13 +48,13 @@ public class ControllerExecutor {
      */
     public static Future<?> buildQuestion() {
         return invokeLater(() -> {
-            logger.info("创建线程更新习题");
+            log.info("创建线程更新习题");
 
             Factory<Question> questionFactory = Factory.getQuestionFactory();
             Question question = questionFactory.produce();
             Context.setQuestion(question);
 
-            logger.info("创建完成");
+            log.info("创建完成");
         });
     }
 }

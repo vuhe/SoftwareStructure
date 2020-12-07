@@ -18,7 +18,7 @@ public class MainApplication {
      * @param args 主函数参数
      */
     public static void main(String[] args) {
-        logger.info("start system, welcome use this system!");
+        logger.info("系统初始化");
         // UI 线程
         SwingUtilities.invokeLater(MainFrame::instance);
     }

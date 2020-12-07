@@ -43,7 +43,7 @@ class QuestionFactory extends Factory<Question> {
         if (question == null) {
             buildProblem();
         }
-        logger.info("返回生成的一套习题");
+        logger.debug("返回生成的一套习题");
         return question;
     }
 
@@ -83,7 +83,7 @@ class QuestionFactory extends Factory<Question> {
                 .unordered().parallel().collect(Collectors.toList());
         // 打乱
         Collections.shuffle(formulas);
-        logger.info("创建一套习题");
+        logger.debug("创建一套习题");
 
         this.question = Question.from(formulas);
     }

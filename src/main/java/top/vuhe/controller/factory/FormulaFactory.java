@@ -2,9 +2,9 @@ package top.vuhe.controller.factory;
 
 import static top.vuhe.model.Context.ANS_MAX;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.model.entity.Formula;
+import top.vuhe.model.entity.Formula.Builder;
 import top.vuhe.model.entity.Operator;
 
 import java.util.*;
@@ -18,8 +18,8 @@ import java.util.stream.Stream;
  *
  * @author vuhe
  */
+@Slf4j
 abstract class FormulaFactory extends Factory<Formula> {
-    private static final Logger logger = LoggerFactory.getLogger(FormulaFactory.class);
     /**
      * 随机数生产器
      */
@@ -35,21 +35,23 @@ abstract class FormulaFactory extends Factory<Formula> {
     @Override
     public Formula produce() {
         // 创建并行生产流
-        Stream<Formula.Builder> builderStream = Stream.generate(this::build);
-        Optional<Formula.Builder> builderOp = builderStream.parallel()
+        Stream<Builder> builderStream = Stream.generate(this::build);
+        Optional<Builder> builderOp = builderStream.parallel()
                 // 检查答案
                 .filter(this::checkFormula)
                 .limit(1)
                 // 获取一个
                 .findFirst();
 
-        Formula.Builder builder;
+        Builder builder;
         if (builderOp.isPresent()) {
             builder = builderOp.get();
         } else {
+            log.error("生产错误");
             throw new NoSuchElementException("生产错误");
         }
 
+        log.trace("生产一个算式");
         return builder.build();
     }
 
@@ -62,13 +64,13 @@ abstract class FormulaFactory extends Factory<Formula> {
      */
     abstract protected Operator getOp();
 
-    private Formula.Builder build() {
-        return new Formula.Builder()
+    private Builder build() {
+        return Formula.builder()
                 // 两个数数范围：1 ～ 99
-                .setA(RANDOM_NUM.nextInt(99) + 1)
-                .setB(RANDOM_NUM.nextInt(99) + 1)
+                .a(RANDOM_NUM.nextInt(99) + 1)
+                .b(RANDOM_NUM.nextInt(99) + 1)
                 // 子类获取运算符
-                .setOp(getOp());
+                .op(getOp());
     }
 
     /**
@@ -79,8 +81,8 @@ abstract class FormulaFactory extends Factory<Formula> {
      * @param builder 算式构建者
      * @return 是否符合要求
      */
-    private boolean checkFormula(Formula.Builder builder) {
-        int ans = builder.getAns();
+    private boolean checkFormula(Builder builder) {
+        int ans = builder.ans();
         // 答案是否超出范围
         return 0 <= ans && ans <= ANS_MAX;
     }

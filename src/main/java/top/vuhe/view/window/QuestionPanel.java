@@ -1,7 +1,6 @@
 package top.vuhe.view.window;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.view.window.component.FormulasPanel;
 import top.vuhe.view.window.component.FunctionPanel;
 
@@ -11,8 +10,8 @@ import java.awt.*;
 /**
  * @author vuhe
  */
+@Slf4j
 public class QuestionPanel extends JPanel {
-    private static final Logger logger = LoggerFactory.getLogger(QuestionPanel.class);
     private static final QuestionPanel INSTANCE = new QuestionPanel();
     private final FormulasPanel formulasPanel = FormulasPanel.instance();
     private final FunctionPanel buttonPanel = FunctionPanel.instance();
@@ -29,7 +28,7 @@ public class QuestionPanel extends JPanel {
      * @return 问题面板
      */
     public static QuestionPanel instance() {
-        logger.info("获取问题面板");
+        log.info("获取问题面板");
         return INSTANCE;
     }
 

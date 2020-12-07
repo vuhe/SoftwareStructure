@@ -1,11 +1,10 @@
 package top.vuhe.controller.factory;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Operator;
@@ -22,8 +21,8 @@ import java.util.stream.Stream;
  *
  * @author vuhe
  */
+@Slf4j
 class QuestionTest {
-    private static final Logger logger = LoggerFactory.getLogger(QuestionTest.class);
     /**
      * 默认检验问题数
      */
@@ -31,13 +30,13 @@ class QuestionTest {
 
     @BeforeAll
     static void beforeAll() {
-        logger.info("「问题」单元测试");
+        log.info("「问题」单元测试");
     }
 
     @Test
     @DisplayName("检查重复算式")
     void checkRepeatedFormula() {
-        logger.info("开始运算式生成不重复测试");
+        log.info("开始运算式生成不重复测试");
 
         // 创建并行问题流
         Stream<Question> questionStream = Stream.generate(new QuestionFactory()::produce);
@@ -48,13 +47,13 @@ class QuestionTest {
                 // 对于每一个问题执行
                 .forEach(this::checkEveryQuestionRepeatedFormula);
 
-        logger.info("算式检测完成，无重复");
+        log.info("算式检测完成，无重复");
     }
 
     @Test
     @DisplayName("检查运算符数量")
     void checkNumberOfOperators() {
-        logger.info("开始运算符在指定范围测试");
+        log.info("开始运算符在指定范围测试");
 
         // 创建并行问题流
         Stream<Question> questionStream = Stream.generate(new QuestionFactory()::produce);
@@ -65,7 +64,7 @@ class QuestionTest {
                 // 对于每一个问题执行
                 .forEach(this::checkEveryQuestionNumberOfOperators);
 
-        logger.info("运算符检查完成，符合要求");
+        log.info("运算符检查完成，符合要求");
     }
 
     private void checkEveryQuestionRepeatedFormula(Question question) {
