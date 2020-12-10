@@ -2,7 +2,6 @@ package top.vuhe.view.window.component;
 
 import lombok.extern.slf4j.Slf4j;
 import top.vuhe.model.Context;
-import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Question;
 
 import javax.swing.*;
@@ -67,7 +66,6 @@ public class FormulasPanel extends JPanel {
 }
 
 class FormulaComponent extends JPanel {
-    private Formula formula;
     private final JLabel formulaText = new JLabel();
     private final JLabel ansText = new JLabel();
 
@@ -95,18 +93,15 @@ class FormulaComponent extends JPanel {
     /**
      * 对单个算式标签设置
      *
-     * @param formula 算式
+     * @param node 算式
      */
-    public void setFormula(Formula formula) {
+    public void setFormula(Question.Node node) {
         // 设置问题文字
-        formulaText.setText(formula.toString());
+        formulaText.setText(node.getFormula());
 
         // 设置答案文字
-        ansText.setText(String.valueOf(formula.getAns()));
+        ansText.setText(String.valueOf(node.getAns()));
         // 默认不显示答案
         ansText.setVisible(false);
-
-        // 记录算式
-        this.formula = formula;
     }
 }
