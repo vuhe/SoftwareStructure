@@ -13,24 +13,25 @@ import java.util.List;
  *
  * @author vuhe
  */
-public class Question implements Iterable<Formula> {
-    private final List<Formula> formulas;
-    private final int size;
+public class Question implements Iterable<Question.Node> {
+    private final List<Node> questions;
 
-    private Question(List<Formula> formulas, int size) {
-        this.formulas = formulas;
-        this.size = size;
+    private Question(List<Formula> formulas) {
+        questions = new ArrayList<>(formulas.size() + 1);
+        for (var f : formulas) {
+            questions.add(new Node(f));
+        }
     }
 
     public static Question from(){
-        return new Question(new ArrayList<>(), 0);
+        return new Question(new ArrayList<>());
     }
 
     public static Question from(Formula formula) {
         if (formula != null) {
             List<Formula> list = new ArrayList<>();
             list.add(formula);
-            return new Question(list, 1);
+            return new Question(list);
         } else {
             return from();
         }
@@ -38,19 +39,60 @@ public class Question implements Iterable<Formula> {
 
     public static Question from(List<Formula> formulas) {
         if (formulas != null) {
-            return new Question(formulas, formulas.size());
+            return new Question(formulas);
         } else {
             return from();
         }
     }
 
-    @NotNull
-    @Override
-    public Iterator<Formula> iterator() {
-        return formulas.iterator();
+    public enum State {
+        // 未做
+        NotDo,
+        // 错误
+        Wrong,
+        // 正确
+        Correct
     }
 
-    public int getSize() {
-        return size;
+    public static class Node {
+        private final String formula;
+        private final int ans;
+        private State state = State.NotDo;
+        private Integer userAns = null;
+
+        private Node(Formula f) {
+            formula = f.toString();
+            ans = f.getAns();
+        }
+
+        public String getFormula() {
+            return formula;
+        }
+
+        public int getAns() {
+            return ans;
+        }
+
+        public State getState() {
+            return state;
+        }
+
+        public Integer getUserAns() {
+            return userAns;
+        }
+
+        public void setState(State state) {
+            this.state = state;
+        }
+
+        public void setUserAns(Integer userAns) {
+            this.userAns = userAns;
+        }
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Node> iterator() {
+        return questions.iterator();
     }
 }

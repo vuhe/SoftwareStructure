@@ -1,9 +1,7 @@
 package top.vuhe.view.window.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.model.Context;
-import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Question;
 
 import javax.swing.*;
@@ -14,8 +12,8 @@ import java.util.List;
 /**
  * @author vuhe
  */
+@Slf4j
 public class FormulasPanel extends JPanel {
-    private static final Logger logger = LoggerFactory.getLogger(FormulasPanel.class);
     private static final FormulasPanel INSTANCE = new FormulasPanel();
     private final List<FormulaComponent> labels = new LinkedList<>();
 
@@ -38,7 +36,7 @@ public class FormulasPanel extends JPanel {
      * @return 此Panel的单例
      */
     public static FormulasPanel instance() {
-        logger.info("获取算式面板");
+        log.info("获取算式面板");
         return INSTANCE;
     }
 
@@ -46,7 +44,7 @@ public class FormulasPanel extends JPanel {
      * 循环调用标签中的显示方法
      */
     public void showAns() {
-        logger.info("显示所有算式答案");
+        log.info("显示所有算式答案");
         for (var i : labels) {
             i.showAns();
         }
@@ -68,7 +66,6 @@ public class FormulasPanel extends JPanel {
 }
 
 class FormulaComponent extends JPanel {
-    private Formula formula;
     private final JLabel formulaText = new JLabel();
     private final JLabel ansText = new JLabel();
 
@@ -96,18 +93,15 @@ class FormulaComponent extends JPanel {
     /**
      * 对单个算式标签设置
      *
-     * @param formula 算式
+     * @param node 算式
      */
-    public void setFormula(Formula formula) {
+    public void setFormula(Question.Node node) {
         // 设置问题文字
-        formulaText.setText(formula.toString());
+        formulaText.setText(node.getFormula());
 
         // 设置答案文字
-        ansText.setText(String.valueOf(formula.getAns()));
+        ansText.setText(String.valueOf(node.getAns()));
         // 默认不显示答案
         ansText.setVisible(false);
-
-        // 记录算式
-        this.formula = formula;
     }
 }

@@ -15,7 +15,7 @@
 
 ## 运行
 
-本系统运行环境需要 java 11+
+本系统运行环境需要 java 11+ 及 Lombok 插件支持
 
 如果需要运行本系统，可以执行 `main` 包下的 `MainApplication`
 

@@ -1,7 +1,6 @@
 package top.vuhe.view.window;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +10,8 @@ import java.awt.*;
  *
  * @author vuhe
  */
+@Slf4j
 public class LoadingPanel extends JPanel {
-    private static final Logger logger = LoggerFactory.getLogger(LoadingPanel.class);
     private static final JPanel INSTANCE = new LoadingPanel();
 
     private LoadingPanel() {
@@ -21,7 +20,7 @@ public class LoadingPanel extends JPanel {
     }
 
     public static JPanel instance() {
-        logger.info("获取加载页面");
+        log.info("获取加载页面");
         return INSTANCE;
     }
 }

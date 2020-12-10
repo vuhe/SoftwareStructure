@@ -1,4 +1,4 @@
-#  (2020-11-28)
+#  (2020-12-10)
 
 
 ### Bug Fixes
@@ -14,9 +14,12 @@
 
 ### Features
 
+* **all:** 使用Lombok插件 ([b3dfe1f](https://github.com/vuhe/SoftwareStructure/commit/b3dfe1fb8817534b6e025c51576766e3b4cf70b9))
 * **changelog:** 添加 changelog ([7c10774](https://github.com/vuhe/SoftwareStructure/commit/7c10774daafb543743a461b9ea1bb199db1f880d))
 * **controller:** 添加Controller线程 ([8f0139f](https://github.com/vuhe/SoftwareStructure/commit/8f0139f17b4a2ad8af1cff52e8d091d2bc63e55c))
 * **controller:** 重构至用阻塞控制流程 ([9e48881](https://github.com/vuhe/SoftwareStructure/commit/9e48881d012b6bbe826fe6007f5d30edd63b6fe9))
+* **factory:** 切换为Stream生产和检验 ([ed463ab](https://github.com/vuhe/SoftwareStructure/commit/ed463ab6616ddc4c16a254d024f87e9982e2761f))
+* **factory:** 对工厂进行抽象 ([111afcb](https://github.com/vuhe/SoftwareStructure/commit/111afcb4a62fec8bbfcd1df567e24d3328b022b6))
 * **formula:** 完成算式不重复 ([1bed8fb](https://github.com/vuhe/SoftwareStructure/commit/1bed8fbbe945c77679dd6fde080af3f655692140))
 * **formula:** 完成运算符平均化 ([0b9bec2](https://github.com/vuhe/SoftwareStructure/commit/0b9bec23bfc67af5d1e9e51141da684844f72aed))
 * **formula:** 算式换用构建者模式 ([f567b5a](https://github.com/vuhe/SoftwareStructure/commit/f567b5af9ba2e02330aa18c701b88f42ab9a1398))
@@ -26,6 +29,7 @@
 * **problem:** 添加更换题目类型 ([82e848c](https://github.com/vuhe/SoftwareStructure/commit/82e848ca3900eebd1bffc01b4dd5848a2ee09a25))
 * **problem:** 隔离问题工厂职责 ([46b1bac](https://github.com/vuhe/SoftwareStructure/commit/46b1baccdb70c85ba8bf8706a675410495700679))
 * **Problem:** 更换问题类职责 ([bdb6538](https://github.com/vuhe/SoftwareStructure/commit/bdb65386d31546acbed3ddfdd92a64247069fb0f))
+* **question:** 调整问题数据结构 ([450f92a](https://github.com/vuhe/SoftwareStructure/commit/450f92a4a3abcf719b2bbf6aabfd8215393d77fd))
 * 切换至swing组件 ([a46ed1f](https://github.com/vuhe/SoftwareStructure/commit/a46ed1ff2082b6fb04ac65b371a79248fb18d58c))
 * 完成基本功能 ([6c3a198](https://github.com/vuhe/SoftwareStructure/commit/6c3a198ed8de6a72a6e571f0de201871c943ae55))
 * 完成打包和说明 ([5439cca](https://github.com/vuhe/SoftwareStructure/commit/5439ccaa1590070fec442a9204cf5bc1ed4a8bff))

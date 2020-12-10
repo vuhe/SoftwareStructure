@@ -1,10 +1,9 @@
 package top.vuhe;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import top.vuhe.controller.factory.QuestionFactory;
+import top.vuhe.controller.factory.Factory;
 import top.vuhe.model.entity.Question;
 
 /**
@@ -12,9 +11,8 @@ import top.vuhe.model.entity.Question;
  *
  * @author vuhe
  */
+@Slf4j
 public class MainTest {
-    private static final Logger logger = LoggerFactory.getLogger(MainTest.class);
-
     /**
      * 版本 v0.x 测试
      * <p>
@@ -23,8 +21,9 @@ public class MainTest {
     @Test
     @DisplayName("面向过程测试")
     public void test() {
-        logger.info("v0.x 面向过程测试");
-        Question question = QuestionFactory.of().create();
+        log.info("v0.x 面向过程测试");
+        Factory<Question> questionFactory = Factory.getQuestionFactory();
+        Question question = questionFactory.produce();
         int i = 0;
         for (var formula : question) {
             if (i != 0 && i % 5 == 0) {

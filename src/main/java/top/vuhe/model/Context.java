@@ -1,7 +1,6 @@
 package top.vuhe.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import top.vuhe.model.entity.Question;
 
 /**
@@ -9,8 +8,8 @@ import top.vuhe.model.entity.Question;
  *
  * @author vuhe
  */
+@Slf4j
 public final class Context {
-    private static final Logger logger = LoggerFactory.getLogger(Context.class);
     /**
      * 算式数量
      * <br>
@@ -61,15 +60,15 @@ public final class Context {
 
     public synchronized static void setProportionNumber(int plus, int minus) {
         if (plus + minus != PROBABILITY_SUM) {
-            logger.error("概率和不为 100% !");
+            log.error("概率和不为 100% !");
             throw new IllegalArgumentException("The calculation formula accounts for not 100%.");
         }
         if (plus < 0) {
-            logger.error("加法算式比例小于 0 !");
+            log.error("加法算式比例小于 0 !");
             throw new IllegalArgumentException("The ratio of addition formula cannot be less than zero.");
         }
         if (minus < 0) {
-            logger.error("减法算式比例小于 0 !");
+            log.error("减法算式比例小于 0 !");
             throw new IllegalArgumentException("The ratio of subtraction formula cannot be less than zero.");
         }
         // 百分比转换为数量

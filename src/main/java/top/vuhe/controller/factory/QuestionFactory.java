@@ -4,12 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Formula;
-import top.vuhe.model.entity.Operator;
 import top.vuhe.model.entity.Question;
 
 import java.util.*;
-
-import static top.vuhe.model.Context.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 问题生成器
@@ -19,12 +18,8 @@ import static top.vuhe.model.Context.*;
  *
  * @author vuhe
  */
-public class QuestionFactory {
+class QuestionFactory extends Factory<Question> {
     private static final Logger logger = LoggerFactory.getLogger(QuestionFactory.class);
-    /**
-     * 算式统计器
-     */
-    private final Set<Formula> formulaSet = new HashSet<>();
     /**
      * 生成的问题
      */
@@ -33,19 +28,9 @@ public class QuestionFactory {
     /**
      * 构造方法
      * <p>
-     * 默认不开放，以便将来扩展使用
+     * 默认不对包外开放，以便将来扩展使用
      */
-    private QuestionFactory() {}
-
-    /**
-     * 默认构造
-     * <p>
-     * 比例由应用上文确定
-     *
-     * @return 构造工厂
-     */
-    public static QuestionFactory of() {
-        return new QuestionFactory();
+    QuestionFactory() {
     }
 
     /**
@@ -53,11 +38,12 @@ public class QuestionFactory {
      *
      * @return 习题
      */
-    public Question create() {
+    @Override
+    public Question produce() {
         if (question == null) {
             buildProblem();
         }
-        logger.info("返回生成的一套习题");
+        logger.debug("返回生成的一套习题");
         return question;
     }
 
@@ -68,40 +54,37 @@ public class QuestionFactory {
      * 按顺序生成后打乱顺序
      */
     private void buildProblem() {
-        List<Formula> formulas = new ArrayList<>(FORMULA_NUM + 1);
         // 加法
-        Operator op = Operator.plus;
-        for (int i = 0; i < Context.getPlusNum(); i++) {
-            // 用刚刚创建的算式，生成一个加法算式
-            // 加入问题集合
-            formulas.add(checkAndBuildFormula(op));
-        }
-        // 减法
-        op = Operator.minus;
-        for (int i = 0; i < Context.getMinusNum(); i++) {
-            // 用刚刚创建的算式，生成一个减法算式
-            // 加入问题集合
-            formulas.add(checkAndBuildFormula(op));
-        }
+        Factory<Formula> addFormula = new AddFormulaFactory();
+        Stream<Formula> addStream = Stream.generate(addFormula::produce);
+        // 并行化加法算式流
+        addStream = addStream.parallel()
+                // 忽略顺序
+                .unordered()
+                // 去重
+                .distinct()
+                // 取一定的加法算式
+                .limit(Context.getPlusNum());
 
+        // 减法
+        Factory<Formula> subFormula = new SubFormulaFactory();
+        Stream<Formula> subStream = Stream.generate(subFormula::produce);
+        // 并行化减法算式
+        subStream = subStream.parallel()
+                // 忽略顺序
+                .unordered()
+                // 去重
+                .distinct()
+                // 取一定的减法算式
+                .limit(Context.getMinusNum());
+
+        // 合并流并收集
+        List<Formula> formulas = Stream.concat(addStream, subStream)
+                .unordered().parallel().collect(Collectors.toList());
         // 打乱
         Collections.shuffle(formulas);
-        logger.info("创建一套习题");
+        logger.debug("创建一套习题");
 
         this.question = Question.from(formulas);
-    }
-
-    /**
-     * 检查算式是否存在
-     *
-     * @param op 运算符
-     * @return 检查过的算式
-     */
-    private Formula checkAndBuildFormula(Operator op) {
-        Formula formula;
-        do {
-            formula = FormulaFactory.getFormula(op);
-        } while (!formulaSet.add(formula));
-        return formula;
     }
 }

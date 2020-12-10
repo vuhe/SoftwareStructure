@@ -1,7 +1,6 @@
 package top.vuhe.view.window.component;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +10,8 @@ import java.awt.*;
  *
  * @author vuhe
  */
+@Slf4j
 public class FunctionPanel extends JPanel {
-    private static final Logger logger = LoggerFactory.getLogger(FunctionPanel.class);
     private static final FunctionPanel INSTANCE = new FunctionPanel();
     private final JButton showAns = new JButton("显示答案");
 
@@ -25,13 +24,13 @@ public class FunctionPanel extends JPanel {
             FormulasPanel panel = FormulasPanel.instance();
             panel.showAns();
             showAns.setEnabled(false);
-            logger.info("显示答案（button）");
+            log.info("显示答案（button）");
         });
 
         // 添加
         add(showAns);
 
-        logger.info("获取功能按钮面板");
+        log.info("获取功能按钮面板");
     }
 
     public static FunctionPanel instance() {
