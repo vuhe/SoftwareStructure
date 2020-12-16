@@ -73,9 +73,9 @@ class QuestionTest {
         // 获取迭代器
         question.iterator()
                 // 检查每一个算式
-                .forEachRemaining(formula ->
+                .forEachRemaining(node ->
                         // 断言是否存在
-                        Assertions.assertTrue(set.add(formula)));
+                        Assertions.assertTrue(set.add(node.getFormula())));
     }
 
     private void checkEveryQuestionNumberOfOperators(Question question) {
@@ -87,8 +87,8 @@ class QuestionTest {
         // 获取迭代器
         question.iterator()
                 // 添加每一个运算符
-                .forEachRemaining(formula ->
-                        map.put(formula.getOp(), map.get(formula.getOp()) + 1));
+                .forEachRemaining(node ->
+                        map.put(node.getFormula().getOp(), map.get(node.getFormula().getOp()) + 1));
 
         // 断言加法数量一致
         Assertions.assertSame(Context.getPlusNum(), map.get(Operator.plus));

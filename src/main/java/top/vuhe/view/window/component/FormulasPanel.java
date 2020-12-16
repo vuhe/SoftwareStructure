@@ -97,7 +97,7 @@ class FormulaComponent extends JPanel {
      */
     public void setFormula(Question.Node node) {
         // 设置问题文字
-        formulaText.setText(node.getFormula());
+        formulaText.setText(node.getFormula().toString());
 
         // 设置答案文字
         ansText.setText(String.valueOf(node.getAns()));
