@@ -91,13 +91,13 @@ abstract class FormulaFactory extends Factory<Formula> {
 class AddFormulaFactory extends FormulaFactory {
     @Override
     protected Operator getOp() {
-        return Operator.plus;
+        return Operator.Plus;
     }
 }
 
 class SubFormulaFactory extends FormulaFactory {
     @Override
     protected Operator getOp() {
-        return Operator.minus;
+        return Operator.Minus;
     }
 }

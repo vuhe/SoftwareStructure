@@ -81,8 +81,8 @@ class QuestionTest {
     private void checkEveryQuestionNumberOfOperators(Question question) {
         // 初始化映射
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
-        map.put(Operator.minus, 0);
-        map.put(Operator.plus, 0);
+        map.put(Operator.Minus, 0);
+        map.put(Operator.Plus, 0);
 
         // 获取迭代器
         question.iterator()
@@ -91,8 +91,8 @@ class QuestionTest {
                         map.put(node.getFormula().getOp(), map.get(node.getFormula().getOp()) + 1));
 
         // 断言加法数量一致
-        Assertions.assertSame(Context.getPlusNum(), map.get(Operator.plus));
+        Assertions.assertSame(Context.getPlusNum(), map.get(Operator.Plus));
         // 断言减法数量一致
-        Assertions.assertSame(Context.getMinusNum(), map.get(Operator.minus));
+        Assertions.assertSame(Context.getMinusNum(), map.get(Operator.Minus));
     }
 }
