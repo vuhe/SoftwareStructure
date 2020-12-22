@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import top.vuhe.controller.ControllerExecutor;
 import top.vuhe.view.window.QuestionPanel;
 import top.vuhe.view.window.LoadingPanel;
-import top.vuhe.view.menu.MainMenuBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,8 +34,6 @@ public class MainFrame extends JFrame {
         setResizable(false);
         setLayout(CARD_LAYOUT);
 
-        // 设置菜单
-        setJMenuBar(MainMenuBar.instance());
         // 设置两个切换页面
         add(LoadingPanel.instance(), "loading");
         add(QuestionPanel.instance(), "question");

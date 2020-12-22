@@ -2,6 +2,7 @@ package top.vuhe.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import top.vuhe.controller.factory.Factory;
+import top.vuhe.controller.factory.QuestionEnum;
 import top.vuhe.model.Context;
 import top.vuhe.model.entity.Question;
 
@@ -50,7 +51,7 @@ public class ControllerExecutor {
         return invokeLater(() -> {
             log.info("创建线程更新习题");
 
-            Factory<Question> questionFactory = Factory.getQuestionFactory();
+            Factory<Question> questionFactory = Factory.getQuestionFactory(QuestionEnum.HalfHalf);
             Question question = questionFactory.produce();
             Context.setQuestion(question);
 

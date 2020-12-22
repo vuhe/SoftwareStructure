@@ -39,7 +39,8 @@ class QuestionTest {
         log.info("开始运算式生成不重复测试");
 
         // 创建并行问题流
-        Stream<Question> questionStream = Stream.generate(new QuestionFactory()::produce);
+        Stream<Question> questionStream = Stream.generate(
+                new QuestionFactory(QuestionEnum.HalfHalf)::produce);
         questionStream.parallel()
                 .unordered()
                 // 长度限制
@@ -56,7 +57,8 @@ class QuestionTest {
         log.info("开始运算符在指定范围测试");
 
         // 创建并行问题流
-        Stream<Question> questionStream = Stream.generate(new QuestionFactory()::produce);
+        Stream<Question> questionStream = Stream.generate(
+                new QuestionFactory(QuestionEnum.HalfHalf)::produce);
         questionStream.parallel()
                 .unordered()
                 // 长度限制

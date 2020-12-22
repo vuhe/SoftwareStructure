@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import top.vuhe.controller.factory.Factory;
+import top.vuhe.controller.factory.QuestionEnum;
 import top.vuhe.model.entity.Question;
 
 /**
@@ -22,7 +23,7 @@ public class MainTest {
     @DisplayName("面向过程测试")
     public void test() {
         log.info("v0.x 面向过程测试");
-        Factory<Question> questionFactory = Factory.getQuestionFactory();
+        Factory<Question> questionFactory = Factory.getQuestionFactory(QuestionEnum.HalfHalf);
         Question question = questionFactory.produce();
         int i = 0;
         for (var formula : question) {

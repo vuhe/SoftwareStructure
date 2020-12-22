@@ -25,6 +25,12 @@ abstract class FormulaFactory extends Factory<Formula> {
      */
     private static final Random RANDOM_NUM = new Random(47);
 
+    private final Operator op;
+
+    protected FormulaFactory(Operator op) {
+        this.op = op;
+    }
+
     /**
      * 获取一个算式
      * <p>
@@ -55,22 +61,13 @@ abstract class FormulaFactory extends Factory<Formula> {
         return builder.build();
     }
 
-    /**
-     * 获取一个运算符
-     * <p>
-     * 此方法行为由实现的子类控制
-     *
-     * @return 运算符
-     */
-    abstract protected Operator getOp();
-
     private Builder build() {
         return Formula.builder()
                 // 两个数数范围：1 ～ 99
                 .a(RANDOM_NUM.nextInt(99) + 1)
                 .b(RANDOM_NUM.nextInt(99) + 1)
                 // 子类获取运算符
-                .op(getOp());
+                .op(op);
     }
 
     /**
@@ -89,15 +86,13 @@ abstract class FormulaFactory extends Factory<Formula> {
 }
 
 class AddFormulaFactory extends FormulaFactory {
-    @Override
-    protected Operator getOp() {
-        return Operator.Plus;
+    AddFormulaFactory() {
+        super(Operator.Plus);
     }
 }
 
 class SubFormulaFactory extends FormulaFactory {
-    @Override
-    protected Operator getOp() {
-        return Operator.Minus;
+    SubFormulaFactory() {
+        super(Operator.Minus);
     }
 }
