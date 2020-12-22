@@ -1,7 +1,5 @@
 package top.vuhe.controller.factory;
 
-import static top.vuhe.model.Context.ANS_MAX;
-
 import lombok.extern.slf4j.Slf4j;
 import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Formula.Builder;
@@ -24,6 +22,8 @@ abstract class FormulaFactory extends Factory<Formula> {
      * 随机数生产器
      */
     private static final Random RANDOM_NUM = new Random(47);
+
+    private static final int ANS_MAX = 100;
 
     private final Operator op;
 

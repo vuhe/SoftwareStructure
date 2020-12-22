@@ -93,8 +93,8 @@ class QuestionTest {
                         map.put(node.getFormula().getOp(), map.get(node.getFormula().getOp()) + 1));
 
         // 断言加法数量一致
-        Assertions.assertSame(Context.getPlusNum(), map.get(Operator.Plus));
+        Assertions.assertSame(25, map.get(Operator.Plus));
         // 断言减法数量一致
-        Assertions.assertSame(Context.getMinusNum(), map.get(Operator.Minus));
+        Assertions.assertSame(25, map.get(Operator.Minus));
     }
 }

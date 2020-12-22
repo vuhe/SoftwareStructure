@@ -13,12 +13,13 @@ import java.awt.*;
 @Slf4j
 public class FunctionPanel extends JPanel {
     private static final FunctionPanel INSTANCE = new FunctionPanel();
-    private final JButton showAns = new JButton("显示答案");
+    private final JButton showAns = new JButton("检查答案");
+    private final JButton reset = new JButton("重置");
+    private final JButton save = new JButton("保存");
 
     private FunctionPanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        // 目前仅有一个显示答案的按钮
         // 在显示答案之后会将按钮禁用
         showAns.addActionListener(e -> {
             FormulasPanel panel = FormulasPanel.instance();
@@ -29,6 +30,8 @@ public class FunctionPanel extends JPanel {
 
         // 添加
         add(showAns);
+        add(reset);
+        add(save);
 
         log.info("获取功能按钮面板");
     }
