@@ -65,7 +65,7 @@ class QuestionFactory extends Factory<Question> {
                 // 去重
                 .distinct()
                 // 取一定的加法算式
-                .limit(type.minus);
+                .limit(type.plus);
 
         // 减法
         Factory<Formula> subFormula = new SubFormulaFactory();
