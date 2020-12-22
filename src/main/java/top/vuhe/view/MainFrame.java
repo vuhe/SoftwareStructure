@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
     private MainFrame() {
         super("加减法口算练习系统");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(550, 400);
+        setSize(800, 500);
         setResizable(false);
         setLayout(CARD_LAYOUT);
 
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
      */
     private void endLoading() {
         // 刷新面板信息
-        QuestionPanel.instance().refresh();
+        QuestionPanel.instance().build();
 
         // 显示题目
         CARD_LAYOUT.show(getContentPane(), "question");

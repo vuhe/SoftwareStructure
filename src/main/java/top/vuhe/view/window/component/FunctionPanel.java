@@ -23,9 +23,10 @@ public class FunctionPanel extends JPanel {
         // 在显示答案之后会将按钮禁用
         showAns.addActionListener(e -> {
             FormulasPanel panel = FormulasPanel.instance();
-            panel.showAns();
-            showAns.setEnabled(false);
-            log.info("显示答案（button）");
+            if (panel.showAns()) {
+                showAns.setEnabled(false);
+                log.info("显示答案（button）");
+            }
         });
 
         // 添加

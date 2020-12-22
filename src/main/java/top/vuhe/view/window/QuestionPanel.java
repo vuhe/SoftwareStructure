@@ -35,7 +35,7 @@ public class QuestionPanel extends JPanel {
     /**
      * 刷新
      */
-    public void refresh() {
+    public void build() {
         formulasPanel.update();
         buttonPanel.update();
     }

@@ -6,6 +6,8 @@ import top.vuhe.model.entity.Question;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,11 +45,24 @@ public class FormulasPanel extends JPanel {
     /**
      * 循环调用标签中的显示方法
      */
-    public void showAns() {
+    public boolean showAns() {
         log.info("显示所有算式答案");
+        var isAllDone = true;
         for (var i : labels) {
-            i.showAns();
+            isAllDone = isAllDone && i.hasUserAns();
         }
+        if (isAllDone) {
+            for (var i : labels) {
+                i.showAns();
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "未做完前不能提交",
+                    "警告",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        return isAllDone;
     }
 
     /**
@@ -67,16 +82,29 @@ public class FormulasPanel extends JPanel {
 
 class FormulaComponent extends JPanel {
     private final JLabel formulaText = new JLabel();
+    private final JTextField userAns = new JTextField(2);
     private final JLabel ansText = new JLabel();
 
     private FormulaComponent() {
-        setSize(100, 10);
-        add(formulaText);
-        add(ansText);
+        userAns.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                String key = "0123456789" + (char) 8;
+                if (key.indexOf(e.getKeyChar()) < 0) {
+                    //如果不是数字则取消
+                    e.consume();
+                }
+            }
+        });
         // 设置题目加载
         formulaText.setText("加载中……");
         // 默认不显示答案
         ansText.setVisible(false);
+
+        setSize(100, 10);
+        add(formulaText);
+        add(userAns);
+        add(ansText);
     }
 
     static FormulaComponent instance() {
@@ -103,5 +131,9 @@ class FormulaComponent extends JPanel {
         ansText.setText(String.valueOf(node.getAns()));
         // 默认不显示答案
         ansText.setVisible(false);
+    }
+
+    public boolean hasUserAns() {
+        return !"".equals(userAns.getText());
     }
 }
