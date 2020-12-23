@@ -100,7 +100,7 @@ class FormulaComponent extends JPanel {
         formulaText.setText(node.getFormula().toString());
 
         // 设置答案文字
-        ansText.setText(String.valueOf(node.getAns()));
+        ansText.setText(String.valueOf(node.getFormula().getAns()));
         // 默认不显示答案
         ansText.setVisible(false);
 

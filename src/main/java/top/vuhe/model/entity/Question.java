@@ -64,8 +64,6 @@ public class Question implements Iterable<Question.Node> {
         @Getter
         private final Formula formula;
         @Getter
-        private final int ans;
-        @Getter
         @Setter
         private State state = State.NotDo;
         @Getter
@@ -74,7 +72,6 @@ public class Question implements Iterable<Question.Node> {
 
         private Node(Formula f) {
             formula = f;
-            ans = f.getAns();
         }
     }
 
