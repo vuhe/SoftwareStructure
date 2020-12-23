@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import top.vuhe.model.Context;
 import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Operator;
 import top.vuhe.model.entity.Question;
@@ -39,7 +38,8 @@ class QuestionTest {
         log.info("开始运算式生成不重复测试");
 
         // 创建并行问题流
-        Stream<Question> questionStream = Stream.generate(new QuestionFactory()::produce);
+        Stream<Question> questionStream = Stream.generate(
+                new QuestionFactory(QuestionEnum.HalfHalf)::produce);
         questionStream.parallel()
                 .unordered()
                 // 长度限制
@@ -56,7 +56,8 @@ class QuestionTest {
         log.info("开始运算符在指定范围测试");
 
         // 创建并行问题流
-        Stream<Question> questionStream = Stream.generate(new QuestionFactory()::produce);
+        Stream<Question> questionStream = Stream.generate(
+                new QuestionFactory(QuestionEnum.HalfHalf)::produce);
         questionStream.parallel()
                 .unordered()
                 // 长度限制
@@ -73,26 +74,26 @@ class QuestionTest {
         // 获取迭代器
         question.iterator()
                 // 检查每一个算式
-                .forEachRemaining(formula ->
+                .forEachRemaining(node ->
                         // 断言是否存在
-                        Assertions.assertTrue(set.add(formula)));
+                        Assertions.assertTrue(set.add(node.getFormula())));
     }
 
     private void checkEveryQuestionNumberOfOperators(Question question) {
         // 初始化映射
         Map<Operator, Integer> map = new EnumMap<>(Operator.class);
-        map.put(Operator.minus, 0);
-        map.put(Operator.plus, 0);
+        map.put(Operator.Minus, 0);
+        map.put(Operator.Plus, 0);
 
         // 获取迭代器
         question.iterator()
                 // 添加每一个运算符
-                .forEachRemaining(formula ->
-                        map.put(formula.getOp(), map.get(formula.getOp()) + 1));
+                .forEachRemaining(node ->
+                        map.put(node.getFormula().getOp(), map.get(node.getFormula().getOp()) + 1));
 
         // 断言加法数量一致
-        Assertions.assertSame(Context.getPlusNum(), map.get(Operator.plus));
+        Assertions.assertSame(25, map.get(Operator.Plus));
         // 断言减法数量一致
-        Assertions.assertSame(Context.getMinusNum(), map.get(Operator.minus));
+        Assertions.assertSame(25, map.get(Operator.Minus));
     }
 }

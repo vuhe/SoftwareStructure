@@ -1,5 +1,8 @@
 package top.vuhe.model.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -48,45 +51,27 @@ public class Question implements Iterable<Question.Node> {
     public enum State {
         // 未做
         NotDo,
+        // 已做
+        Done,
         // 错误
         Wrong,
         // 正确
         Correct
     }
 
+    @ToString
     public static class Node {
-        private final String formula;
-        private final int ans;
+        @Getter
+        private final Formula formula;
+        @Getter
+        @Setter
         private State state = State.NotDo;
+        @Getter
+        @Setter
         private Integer userAns = null;
 
         private Node(Formula f) {
-            formula = f.toString();
-            ans = f.getAns();
-        }
-
-        public String getFormula() {
-            return formula;
-        }
-
-        public int getAns() {
-            return ans;
-        }
-
-        public State getState() {
-            return state;
-        }
-
-        public Integer getUserAns() {
-            return userAns;
-        }
-
-        public void setState(State state) {
-            this.state = state;
-        }
-
-        public void setUserAns(Integer userAns) {
-            this.userAns = userAns;
+            formula = f;
         }
     }
 

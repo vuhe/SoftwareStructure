@@ -7,8 +7,8 @@ import top.vuhe.model.entity.Question;
  */
 public abstract class Factory<T> {
 
-    public static Factory<Question> getQuestionFactory() {
-        return new QuestionFactory();
+    public static Factory<Question> getQuestionFactory(QuestionEnum type) {
+        return new QuestionFactory(type);
     }
 
     /**

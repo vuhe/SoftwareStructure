@@ -5,7 +5,7 @@ package top.vuhe.model.entity;
  */
 public enum Operator {
     // 加法
-    plus() {
+    Plus() {
         @Override
         public int calculate(int a, int b) {
             return a + b;
@@ -17,7 +17,7 @@ public enum Operator {
         }
     },
     // 减法
-    minus() {
+    Minus() {
         @Override
         public int calculate(int a, int b) {
             return a - b;

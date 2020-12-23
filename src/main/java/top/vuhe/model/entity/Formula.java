@@ -42,7 +42,7 @@ public class Formula {
      */
     public static class Builder {
         private int a = 1;
-        private Operator op = Operator.plus;
+        private Operator op = Operator.Plus;
         private int b = 1;
 
         public Builder a(int a) {

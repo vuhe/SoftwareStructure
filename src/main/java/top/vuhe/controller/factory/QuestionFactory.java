@@ -2,7 +2,6 @@ package top.vuhe.controller.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.vuhe.model.Context;
 import top.vuhe.model.entity.Formula;
 import top.vuhe.model.entity.Question;
 
@@ -24,13 +23,15 @@ class QuestionFactory extends Factory<Question> {
      * 生成的问题
      */
     private Question question;
+    private final QuestionEnum type;
 
     /**
      * 构造方法
      * <p>
      * 默认不对包外开放，以便将来扩展使用
      */
-    QuestionFactory() {
+    QuestionFactory(QuestionEnum type) {
+        this.type = type;
     }
 
     /**
@@ -64,7 +65,7 @@ class QuestionFactory extends Factory<Question> {
                 // 去重
                 .distinct()
                 // 取一定的加法算式
-                .limit(Context.getPlusNum());
+                .limit(type.plus);
 
         // 减法
         Factory<Formula> subFormula = new SubFormulaFactory();
@@ -76,7 +77,7 @@ class QuestionFactory extends Factory<Question> {
                 // 去重
                 .distinct()
                 // 取一定的减法算式
-                .limit(Context.getMinusNum());
+                .limit(type.minus);
 
         // 合并流并收集
         List<Formula> formulas = Stream.concat(addStream, subStream)
