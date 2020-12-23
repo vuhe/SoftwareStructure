@@ -72,6 +72,18 @@ public class FormulasPanel extends JPanel {
             add(f);
         }
     }
+
+    public void reset() {
+        for (var l : labels) {
+            l.reset();
+        }
+    }
+
+    public void save() {
+        for (var l : labels) {
+            l.save();
+        }
+    }
 }
 
 class FormulaComponent extends JPanel {
@@ -139,5 +151,18 @@ class FormulaComponent extends JPanel {
 
     public boolean hasUserAns() {
         return !"".equals(userAns.getText());
+    }
+
+    public void reset() {
+        userAns.setText("");
+        ansText.setVisible(false);
+        node.setState(Question.State.NotDo);
+        node.setUserAns(null);
+    }
+
+    public void save() {
+        if (node.getState() != Question.State.NotDo) {
+            node.setUserAns(Integer.parseInt(userAns.getText()));
+        }
     }
 }

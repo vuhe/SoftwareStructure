@@ -1,6 +1,8 @@
 package top.vuhe.view.window.component;
 
 import lombok.extern.slf4j.Slf4j;
+import top.vuhe.controller.ControllerExecutor;
+import top.vuhe.model.Context;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +16,7 @@ import java.awt.*;
 public class FunctionPanel extends JPanel {
     private static final FunctionPanel INSTANCE = new FunctionPanel();
     private final JButton showAns = new JButton("检查答案");
-    // TODO-重置问题
     private final JButton reset = new JButton("重置");
-    // TODO-保存状态，写入文件
     private final JButton save = new JButton("保存");
 
     private FunctionPanel() {
@@ -29,6 +29,11 @@ public class FunctionPanel extends JPanel {
                 showAns.setEnabled(false);
                 log.info("显示答案（button）");
             }
+        });
+        reset.addActionListener(e -> FormulasPanel.instance().reset());
+        save.addActionListener(e -> {
+            FormulasPanel.instance().save();
+            ControllerExecutor.writeQuestionToFile(Context.getQuestion());
         });
 
         // 添加
