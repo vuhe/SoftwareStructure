@@ -14,7 +14,9 @@ import java.awt.*;
 public class FunctionPanel extends JPanel {
     private static final FunctionPanel INSTANCE = new FunctionPanel();
     private final JButton showAns = new JButton("检查答案");
+    // TODO-重置问题
     private final JButton reset = new JButton("重置");
+    // TODO-保存状态，写入文件
     private final JButton save = new JButton("保存");
 
     private FunctionPanel() {
@@ -23,7 +25,7 @@ public class FunctionPanel extends JPanel {
         // 在显示答案之后会将按钮禁用
         showAns.addActionListener(e -> {
             FormulasPanel panel = FormulasPanel.instance();
-            if (panel.showAns()) {
+            if (panel.checkAns()) {
                 showAns.setEnabled(false);
                 log.info("显示答案（button）");
             }

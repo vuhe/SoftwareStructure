@@ -10,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author vuhe
@@ -25,11 +26,6 @@ public class FormulasPanel extends JPanel {
      */
     private FormulasPanel() {
         setLayout(new GridLayout(10, 5, 5, 5));
-        for (int i = 0; i < Context.FORMULA_NUM; i++) {
-            FormulaComponent formulaComponent = FormulaComponent.instance();
-            add(formulaComponent);
-            labels.add(formulaComponent);
-        }
     }
 
     /**
@@ -45,7 +41,7 @@ public class FormulasPanel extends JPanel {
     /**
      * 循环调用标签中的显示方法
      */
-    public boolean showAns() {
+    public boolean checkAns() {
         log.info("显示所有算式答案");
         var isAllDone = true;
         for (var i : labels) {
@@ -53,7 +49,7 @@ public class FormulasPanel extends JPanel {
         }
         if (isAllDone) {
             for (var i : labels) {
-                i.showAns();
+                i.checkAns();
             }
         } else {
             JOptionPane.showMessageDialog(
@@ -70,22 +66,32 @@ public class FormulasPanel extends JPanel {
      */
     public void update() {
         Question question = Context.getQuestion();
-        // 算式 和 算式标签迭代器
-        var itProblem = question.iterator();
-        var itLabel = labels.iterator();
-        // 循环设置
-        while (itLabel.hasNext() && itProblem.hasNext()) {
-            itLabel.next().setFormula(itProblem.next());
+        for (var q : question) {
+            var f = FormulaComponent.instance(q);
+            labels.add(f);
+            add(f);
         }
     }
 }
 
 class FormulaComponent extends JPanel {
+    private final Question.Node node;
     private final JLabel formulaText = new JLabel();
     private final JTextField userAns = new JTextField(2);
     private final JLabel ansText = new JLabel();
 
-    private FormulaComponent() {
+    private FormulaComponent(Question.Node node) {
+        this.node = node;
+
+        // TODO-对状态进行复原
+        // 设置问题文字
+        formulaText.setText(node.getFormula().toString());
+
+        // 设置答案文字
+        ansText.setText(String.valueOf(node.getAns()));
+        // 默认不显示答案
+        ansText.setVisible(false);
+
         userAns.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -94,12 +100,14 @@ class FormulaComponent extends JPanel {
                     //如果不是数字则取消
                     e.consume();
                 }
+                // 设置状态
+                if ("".equals(userAns.getText())) {
+                    node.setState(Question.State.NotDo);
+                } else {
+                    node.setState(Question.State.Done);
+                }
             }
         });
-        // 设置题目加载
-        formulaText.setText("加载中……");
-        // 默认不显示答案
-        ansText.setVisible(false);
 
         setSize(100, 10);
         add(formulaText);
@@ -107,30 +115,26 @@ class FormulaComponent extends JPanel {
         add(ansText);
     }
 
-    static FormulaComponent instance() {
-        return new FormulaComponent();
+    static FormulaComponent instance(Question.Node node) {
+        return new FormulaComponent(node);
     }
 
     /**
      * 对一个标签中信息进行替换，显示答案
      */
-    public void showAns() {
+    public void checkAns() {
+        // 禁止再编辑
+        userAns.setEditable(false);
+        var userInput = userAns.getText();
+        // 检查结果，设置状态
+        if (Objects.equals(userInput, ansText.getText())) {
+            ansText.setForeground(Color.GREEN);
+            node.setState(Question.State.Correct);
+        } else {
+            ansText.setForeground(Color.RED);
+            node.setState(Question.State.Wrong);
+        }
         ansText.setVisible(true);
-    }
-
-    /**
-     * 对单个算式标签设置
-     *
-     * @param node 算式
-     */
-    public void setFormula(Question.Node node) {
-        // 设置问题文字
-        formulaText.setText(node.getFormula().toString());
-
-        // 设置答案文字
-        ansText.setText(String.valueOf(node.getAns()));
-        // 默认不显示答案
-        ansText.setVisible(false);
     }
 
     public boolean hasUserAns() {

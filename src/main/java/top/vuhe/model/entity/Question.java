@@ -51,6 +51,8 @@ public class Question implements Iterable<Question.Node> {
     public enum State {
         // 未做
         NotDo,
+        // 已做
+        Done,
         // 错误
         Wrong,
         // 正确
