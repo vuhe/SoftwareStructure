@@ -30,7 +30,10 @@ public class FunctionPanel extends JPanel {
                 log.info("显示答案（button）");
             }
         });
-        reset.addActionListener(e -> FormulasPanel.instance().reset());
+        reset.addActionListener(e -> {
+            FormulasPanel.instance().reset();
+            showAns.setEnabled(true);
+        });
         save.addActionListener(e -> {
             FormulasPanel.instance().save();
             ControllerExecutor.writeQuestionToFile(Context.getQuestion());
@@ -51,7 +54,7 @@ public class FunctionPanel extends JPanel {
     /**
      * 用于接受来自UI刷新的通知
      */
-    public void update() {
-        showAns.setEnabled(true);
+    public void isDone() {
+        showAns.setEnabled(false);
     }
 }

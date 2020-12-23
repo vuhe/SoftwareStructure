@@ -66,10 +66,16 @@ public class FormulasPanel extends JPanel {
      */
     public void update() {
         Question question = Context.getQuestion();
+        var isDone = true;
         for (var q : question) {
             var f = FormulaComponent.instance(q);
             labels.add(f);
             add(f);
+            isDone = isDone && (q.getState() == Question.State.Correct ||
+                    q.getState() == Question.State.Wrong);
+        }
+        if (isDone) {
+            FunctionPanel.instance().isDone();
         }
     }
 
@@ -86,6 +92,7 @@ public class FormulasPanel extends JPanel {
     }
 }
 
+@Slf4j
 class FormulaComponent extends JPanel {
     private final Question.Node node;
     private final JLabel formulaText = new JLabel();
@@ -112,14 +119,16 @@ class FormulaComponent extends JPanel {
                     //如果不是数字则取消
                     e.consume();
                 }
-                // 设置状态
-                if ("".equals(userAns.getText())) {
-                    node.setState(Question.State.NotDo);
-                } else {
-                    node.setState(Question.State.Done);
-                }
             }
         });
+
+        // 习题复原
+        if (node.getState() != Question.State.NotDo) {
+            userAns.setText(node.getUserAns().toString());
+            if (node.getState() != Question.State.Done) {
+                checkAns();
+            }
+        }
 
         setSize(100, 10);
         add(formulaText);
@@ -161,6 +170,11 @@ class FormulaComponent extends JPanel {
     }
 
     public void save() {
+        // 设置状态
+        if (node.getState() == Question.State.NotDo
+                && !"".equals(userAns.getText())) {
+            node.setState(Question.State.Done);
+        }
         if (node.getState() != Question.State.NotDo) {
             node.setUserAns(Integer.parseInt(userAns.getText()));
         }
