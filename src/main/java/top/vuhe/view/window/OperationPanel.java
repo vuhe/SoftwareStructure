@@ -6,6 +6,7 @@ import top.vuhe.model.Context;
 import top.vuhe.view.MainFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
@@ -21,6 +22,7 @@ public class OperationPanel extends JPanel {
     private final JButton startExercise = new JButton("开始练习");
 
     private OperationPanel() {
+        setBorder(BorderFactory.createEmptyBorder(50, 100, 150, 100));
         // 初始化 创建习题按钮
         buildQuestion.addActionListener(e -> {
             var ans = ControllerExecutor.buildQuestionToFile();
@@ -50,9 +52,9 @@ public class OperationPanel extends JPanel {
         });
 
         // 主要页面 初始化
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new GridLayout(4, 1, 20, 20));
 
-        add(new JLabel("若无习题，请先生成"));
+        add(new JLabel("提示：若无习题，请先生成"));
         add(buildQuestion);
         add(selectedExercise);
         add(startExercise);
