@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'top.vuhe'
-version '1.3'
+version '2.0'
 compileJava.options.encoding = "UTF-8"   //这里避免中文乱码
 sourceCompatibility = '11'
 targetCompatibility = '11'
